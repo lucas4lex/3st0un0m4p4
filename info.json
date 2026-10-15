@@ -1,55 +1,42 @@
-
 {
   "projeto": "3st0un0m4p4",
   "nome": "Estou no Mapa",
-  "versao": "1.0.0",
+  "versao": "2.0.0",
   "idioma": "pt-BR",
+  "pais": "Brasil",
   "configuracoes": {
     "mapa": {
       "tipo": "3D",
-      "pais": "Brasil",
       "mostrarEstados": true,
-      "mostrarCidades": true
+      "mostrarCasas": true,
+      "permitirRotacao": true
     },
     "casas": {
       "permitirCriacao": true,
       "limitePorUsuario": 1,
       "nivelInicial": 1,
-      "evoluirPorVotos": true,
       "votosPorNivel": 5,
-      "mostrarNoMapa": true
-    },
-    "casasIniciais": [
-      {
-        "id": "casa_lucarrilho",
-        "nome": "Casa do LuCarrilho",
-        "usuario": "lucarrilho",
-        "cidade": "Curitiba",
-        "estado": "PR",
-        "dataCriacao": "2026-10-15T00:00:00-03:00",
-        "votos": 0,
-        "nivel": 1
-      }
-    ]
-
-    "cidades": {
-      "permitirMultiplasCasas": true,
-      "elegerPresidente": true,
-      "criterioPresidente": "casa_com_mais_votos",
-      "empate": "presidente_atual",
-      "mostrarPresidenteNoMapa": true
-    },
-    "presidentes": {
-      "permitirEleicao": true,
-      "metodo": "votacao",
-      "mandato": "indeterminado",
-      "reeleicao": true
+      "mostrarVotos": true
     },
     "votacao": {
       "ativa": true,
-      "permitirVotoPorUsuario": true,
-      "votosPublicos": true,
-      "atualizarClassificacaoAutomaticamente": true
+      "umVotoPorCasaPorNavegador": true
+    },
+    "presidentes": {
+      "elegerPor": "casa_com_mais_votos",
+      "reeleicao": true,
+      "empate": "casa_mais_antiga"
     }
-  }
+  },
+  "casasIniciais": [
+    {
+      "id": "casa_lucarrilho",
+      "nome": "Casa do LuCarrilho",
+      "usuario": "lucarrilho",
+      "cidade": "Curitiba",
+      "estado": "PR",
+      "votos": 0,
+      "nivel": 1
+    }
+  ]
 }
