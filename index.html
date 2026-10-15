@@ -83,6 +83,46 @@ button:disabled{opacity:.5;cursor:not-allowed}
 
 <div id="estado">Carregando o mapa do Brasil...</div>
 
+<script>
+let CONFIG = null;
+
+async function carregarConfiguracoes() {
+    try {
+        const resposta = await fetch("./info.json");
+
+        if (!resposta.ok) {
+            throw new Error("Não foi possível carregar o info.json");
+        }
+
+        CONFIG = await resposta.json();
+
+        console.log("Configurações carregadas:", CONFIG);
+
+        iniciarMapa();
+    } catch (erro) {
+        console.error("Erro ao carregar as configurações:", erro);
+        document.body.insertAdjacentHTML(
+            "beforeend",
+            "<p>Não foi possível carregar as configurações do jogo.</p>"
+        );
+    }
+}
+
+function iniciarMapa() {
+    // A partir daqui, inicialize o mapa e as funcionalidades.
+    console.log("Mapa:", CONFIG.configuracoes.mapa);
+    console.log("Casas:", CONFIG.configuracoes.casas);
+    console.log("Presidentes:", CONFIG.configuracoes.presidentes);
+
+    // Exemplo: verificar se a criação de casas está habilitada.
+    if (CONFIG.configuracoes.casas.permitirCriacao) {
+        console.log("Criação de casas habilitada.");
+    }
+}
+
+carregarConfiguracoes();
+</script>
+  
 <script type="module">
 import * as THREE from
 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
