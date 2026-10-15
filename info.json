@@ -1,4 +1,3 @@
-json.dumps({
   "project":{"name":"3st0un0m4p4","subtitle":"Estou no Mapa","year":2026},
   "states":[
     {"uf":"AC","name":"Acre","capital":"Rio Branco","region":"Norte","lat":-9.97,"lon":-67.81,"description":"Florestas amazônicas, rios e uma cultura profundamente ligada à região Norte."},
