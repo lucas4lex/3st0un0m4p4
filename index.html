@@ -1,54 +1,116 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#07111f">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>3st0un0m4p4 — Estou no Mapa</title>
-  <meta name="description" content="Explore o Brasil em um mapa 3D interativo.">
+  <meta name="description" content="Um mapa 3D do Brasil para encontrar pessoas, cidades e histórias.">
+  <meta name="theme-color" content="#071426">
+
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%87%A7%F0%9F%87%B7%3C/text%3E%3C/svg%3E">
 </head>
 <body>
-<header class="topbar">
-  <a class="brand" href="./"><span class="logo">3D</span><span><b>3st0un0m4p4</b><small>ESTOU NO MAPA</small></span></a>
-  <span class="status"><i></i> MAPA INTERATIVO</span>
-</header>
-<main>
-  <section class="intro">
-    <div class="eyebrow">UM PAÍS, MILHARES DE HISTÓRIAS</div>
-    <h1>O Brasil inteiro.<br><em>Na palma da mão.</em></h1>
-    <p>Gire o globo, descubra os estados e encontre seu lugar no Brasil.</p>
-    <div class="stats"><div><b id="state-count">27</b><span>UFs</span></div><div><b>5</b><span>Regiões</span></div><div><b>∞</b><span>Descobertas</span></div></div>
-  </section>
-  <section class="map-panel">
-    <div class="panel-head"><div><small>VISUALIZAÇÃO</small><b>Brasil em 3D</b></div><div><button id="reset-view" title="Reiniciar visualização">↺</button><button id="spin-toggle" title="Alternar rotação automática">⟳</button></div></div>
-    <div id="map-stage">
-      <canvas id="map3d" aria-label="Globo 3D interativo"></canvas>
-      <div class="map-hint">↔ Arraste para girar <span>•</span> Scroll para aproximar</div>
-      <div class="map-coordinates">BRASIL · 14°S 52°W</div>
-      <div id="map-loading">Preparando o mapa 3D…</div>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="3st0un0m4p4 — início">
+      <span class="brand-icon">3D</span>
+      <span>
+        <strong>3st0un0m4p4</strong>
+        <small>ESTOU NO MAPA</small>
+      </span>
+    </a>
+
+    <div class="topbar-status">
+      <span class="status-dot"></span>
+      MAPA DO BRASIL
     </div>
-    <div class="legend"><span><i class="brazil"></i> Brasil em destaque</span><span><i class="land"></i> Globo terrestre</span><span><i class="capital"></i> Capital</span></div>
-  </section>
-  <aside class="side-panel">
-    <section class="card">
-      <div class="label">ENCONTRE SEU LUGAR</div>
-      <label class="search"><span>⌕</span><input id="search-input" type="search" placeholder="Estado, UF ou capital…" autocomplete="off"><kbd>/</kbd></label>
-      <div id="search-results"></div>
+  </header>
+
+  <main class="layout">
+    <section class="intro">
+      <span class="eyebrow">UM PAÍS, MILHÕES DE HISTÓRIAS</span>
+      <h1>O Brasil é gigante.<br><span>Encontre seu lugar.</span></h1>
+      <p>Explore o mapa, encontre pessoas e descubra quem está no mapa.</p>
+
+      <form id="formBusca" class="search-form">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input
+          id="campoBusca"
+          type="search"
+          placeholder="Busque por nome, cidade ou estado..."
+          autocomplete="off"
+          aria-label="Buscar pessoas"
+        >
+        <button type="submit">Buscar</button>
+      </form>
+
+      <div class="stats">
+        <div class="stat">
+          <strong id="totalPessoas">—</strong>
+          <span>PESSOAS NO MAPA</span>
+        </div>
+        <div class="stat">
+          <strong id="totalEstados">—</strong>
+          <span>ESTADOS REPRESENTADOS</span>
+        </div>
+        <div class="stat">
+          <strong>🇧🇷</strong>
+          <span>BRASIL</span>
+        </div>
+      </div>
     </section>
-    <section class="card detail">
-      <div class="detail-top"><span id="detail-flag">🇧🇷</span><span id="detail-region" class="pill">PAÍS</span></div>
-      <div class="label">SEU PONTO NO MAPA</div>
-      <h2 id="detail-name">Brasil</h2>
-      <p id="detail-description">Um país de dimensões continentais, diversidade cultural e paisagens extraordinárias.</p>
-      <div class="detail-grid"><div><small>CAPITAL</small><b id="detail-capital">Brasília</b></div><div><small>REGIÃO</small><b id="detail-region-name">Todas</b></div></div>
-      <button id="focus-map" class="primary">Localizar no globo <span>↗</span></button>
+
+    <section class="map-section" aria-label="Mapa 3D interativo do Brasil">
+      <div class="map-heading">
+        <div>
+          <span class="eyebrow">EXPLORAÇÃO INTERATIVA</span>
+          <h2>Brasil em 3D</h2>
+        </div>
+        <span class="live-tag"><span class="status-dot"></span> INTERATIVO</span>
+      </div>
+
+      <div id="mapa" class="map-canvas">
+        <div id="mapaCarregando" class="map-loading">
+          <div class="loader"></div>
+          <strong>Preparando o mapa...</strong>
+          <span>Carregando os dados do Brasil</span>
+        </div>
+        <div id="tooltipMapa" class="map-tooltip" hidden></div>
+      </div>
+
+      <div class="map-controls">
+        <span>🖱️ Arraste para girar · Role para aproximar</span>
+        <button id="resetarMapa" type="button">⟳ Centralizar</button>
+      </div>
+      <p class="map-note">
+        O mapa utiliza dados geográficos externos. É necessária uma conexão com a internet.
+      </p>
     </section>
-    <p class="footnote">Feito para explorar. Feito para encontrar seu lugar. <b>#EstouNoMapa</b></p>
-  </aside>
-</main>
-<footer>3st0un0m4p4 <span>© 2026</span> · ESTOU NO MAPA</footer>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-<script src="script.js"></script>
+
+    <section class="people-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">GENTE DE TODO O BRASIL</span>
+          <h2 id="tituloResultados">Pessoas no mapa</h2>
+        </div>
+        <span id="contadorResultados" class="result-count">Carregando...</span>
+      </div>
+
+      <div id="mensagem" class="message" role="status">
+        Carregando as pessoas cadastradas...
+      </div>
+
+      <div id="listaPessoas" class="people-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="footer-brand" href="index.html">3st0un0m4p4</a>
+    <span>ESTOU NO MAPA 🇧🇷</span>
+    <span>Feito para conectar pessoas.</span>
+  </footer>
+
+  <script type="module" src="script.js"></script>
 </body>
 </html>
