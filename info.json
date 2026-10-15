@@ -1,29 +1,56 @@
 {
   "projeto": {
     "nome": "3st0un0m4p4",
-    "slogan": "Estou no Mapa"
+    "slogan": "Estou no Mapa",
+    "pais": "Brasil"
   },
   "pessoas": [
     {
-      "id": 1,
+      "id": "lucas-001",
       "nome": "Lucas",
       "cidade": "Curitiba",
       "estado": "Paraná",
       "uf": "PR",
       "latitude": -25.4284,
       "longitude": -49.2733,
-      "descricao": "Desenvolvedor e criador de projetos.",
+      "descricao": "Uma pessoa que está no mapa!",
+      "categoria": "Criador",
       "visivel": true
     },
     {
-      "id": 2,
+      "id": "ana-002",
       "nome": "Ana",
       "cidade": "São Paulo",
       "estado": "São Paulo",
       "uf": "SP",
       "latitude": -23.5505,
       "longitude": -46.6333,
-      "descricao": "Uma pessoa que quer estar no mapa!",
+      "descricao": "Representando a cidade de São Paulo.",
+      "categoria": "Comunidade",
+      "visivel": true
+    },
+    {
+      "id": "joao-003",
+      "nome": "João",
+      "cidade": "Brasília",
+      "estado": "Distrito Federal",
+      "uf": "DF",
+      "latitude": -15.7939,
+      "longitude": -47.8828,
+      "descricao": "Presente na capital do Brasil.",
+      "categoria": "Comunidade",
+      "visivel": true
+    },
+    {
+      "id": "marina-004",
+      "nome": "Marina",
+      "cidade": "Salvador",
+      "estado": "Bahia",
+      "uf": "BA",
+      "latitude": -12.9777,
+      "longitude": -38.5016,
+      "descricao": "Um abraço direto da Bahia.",
+      "categoria": "Comunidade",
       "visivel": true
     }
   ]
