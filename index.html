@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,1383 +5,1331 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>3st0un0m4p4 — Estou no Mapa</title>
-<meta name="description" content="Crie sua casa, vote e conquiste seu lugar no mapa do Brasil.">
-<meta name="theme-color" content="#07111f">
+<meta name="description" content="Construa sua casa no mapa 3D do Brasil, receba votos e conquiste sua cidade.">
+<meta name="theme-color" content="#10152b">
 
 <style>
 :root {
-    color-scheme: dark;
-    --fundo: #07111f;
-    --painel: #101e30;
-    --borda: #263b53;
-    --texto: #f1f6ff;
-    --suave: #9db0c7;
-    --verde: #46e6a5;
-    --azul: #55aaff;
-    --amarelo: #ffd166;
+  --bg: #0b1020;
+  --panel: #141c32;
+  --panel2: #1b2640;
+  --line: #2c3958;
+  --text: #f4f7ff;
+  --muted: #9ba9c6;
+  --blue: #6685ff;
+  --green: #4de0a2;
+  --yellow: #ffd166;
+  --red: #ff7388;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--fundo);
-    color: var(--texto);
-    font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
-button, input, select { font: inherit; }
+button, input, select {
+  font: inherit;
+}
 
 button {
-    border: 0;
-    border-radius: 10px;
-    padding: 11px 15px;
-    background: var(--verde);
-    color: #052218;
-    font-weight: 700;
-    cursor: pointer;
+  cursor: pointer;
 }
 
-button:hover { filter: brightness(1.08); }
-button:disabled { opacity: .45; cursor: not-allowed; }
-
-input, select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--borda);
-    border-radius: 9px;
-    background: #091626;
-    color: var(--texto);
-    outline: none;
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
 }
-
-input:focus, select:focus { border-color: var(--azul); }
 
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    padding: 17px 22px;
-    border-bottom: 1px solid var(--borda);
-    background: #091523;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 5%;
+  border-bottom: 1px solid var(--line);
+  background: #10172b;
 }
 
 .logo {
-    font-size: 21px;
-    font-weight: 900;
-    letter-spacing: -.7px;
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: -1px;
 }
 
-.logo span { color: var(--verde); }
+.logo span {
+  color: var(--green);
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 5px;
+}
 
 .status {
-    color: var(--suave);
-    font-size: 12px;
+  color: var(--green);
+  font-size: 12px;
+  background: #17372f;
+  border: 1px solid #245c4b;
+  border-radius: 30px;
+  padding: 9px 13px;
 }
 
 main {
-    width: min(1500px, 100%);
-    margin: auto;
-    padding: 20px;
+  width: min(1450px, 94%);
+  margin: 25px auto 50px;
 }
 
-.intro { margin-bottom: 18px; }
-
-.intro h1 {
-    margin: 0 0 8px;
-    font-size: clamp(25px, 4vw, 38px);
-    letter-spacing: -1px;
+.hero {
+  margin-bottom: 24px;
 }
 
-.intro p {
-    margin: 0;
-    color: var(--suave);
-    line-height: 1.6;
+.hero h1 {
+  font-size: clamp(27px, 4vw, 42px);
+  margin: 0 0 9px;
+  letter-spacing: -1.5px;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 720px;
 }
 
 .stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin: 18px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+  margin: 22px 0;
 }
 
-.stat, .panel {
-    border: 1px solid var(--borda);
-    border-radius: 15px;
-    background: var(--painel);
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 17px;
+  border-radius: 15px;
 }
-
-.stat { padding: 16px; }
 
 .stat small {
-    display: block;
-    color: var(--suave);
-    margin-bottom: 7px;
+  display: block;
+  color: var(--muted);
+  margin-bottom: 8px;
 }
 
-.stat strong { font-size: 25px; }
+.stat strong {
+  font-size: 25px;
+}
 
 .layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 330px;
-    gap: 16px;
-    align-items: start;
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(300px, 0.8fr);
+  gap: 18px;
+  align-items: start;
 }
 
-.map-panel { overflow: hidden; }
-
-.map-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    padding: 15px;
-    border-bottom: 1px solid var(--borda);
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  overflow: hidden;
+  min-width: 0;
 }
 
-.map-heading h2, .panel h2 {
-    margin: 0;
-    font-size: 16px;
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 17px 19px;
+  border-bottom: 1px solid var(--line);
 }
 
-.map-heading span {
-    font-size: 12px;
-    color: var(--suave);
+.panel-head h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.panel-head p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+
+.map-wrap {
+  position: relative;
+  height: 570px;
+  background:
+    radial-gradient(ellipse at center, #1d3150 0%, #101a30 58%, #0b1223 100%);
+  overflow: hidden;
 }
 
 #mapa {
-    position: relative;
-    width: 100%;
-    height: 550px;
-    background:
-        radial-gradient(ellipse at center, #102c40 0%, #091725 68%, #07111f 100%);
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
 }
 
-#mapa canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-    outline: none;
+.map-label {
+  position: absolute;
+  left: 15px;
+  bottom: 14px;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #b7c5df;
+  background: #10172bdc;
+  padding: 9px 12px;
+  border: 1px solid #34435f;
+  border-radius: 9px;
+  pointer-events: none;
 }
 
-.map-tip {
-    padding: 11px 15px;
-    border-top: 1px solid var(--borda);
-    color: var(--suave);
-    font-size: 12px;
-    line-height: 1.5;
+.map-controls {
+  display: flex;
+  gap: 7px;
 }
 
-.sidebar {
-    display: grid;
-    gap: 14px;
+.small-button,
+.button {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--text);
+  background: var(--panel2);
+  padding: 10px 12px;
+  font-weight: 700;
+  transition: 0.2s;
 }
 
-.panel { padding: 17px; }
+.small-button:hover,
+.button:hover {
+  filter: brightness(1.2);
+  transform: translateY(-1px);
+}
 
-.panel h2 { margin-bottom: 15px; }
+.button.primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+}
+
+.button.vote {
+  background: #173b32;
+  border-color: #28674f;
+  color: var(--green);
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.side {
+  display: grid;
+  gap: 18px;
+}
+
+.form-body,
+.list-body {
+  padding: 18px;
+}
 
 .field {
-    display: grid;
-    gap: 7px;
-    margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .field label {
-    color: #c7d6e8;
-    font-size: 13px;
+  display: block;
+  color: #c7d2e9;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 7px;
 }
 
-.form-note {
-    color: var(--suave);
-    font-size: 12px;
-    line-height: 1.5;
-    margin: 10px 0 0;
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px;
+  background: #0c1427;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 9px;
 }
 
-.full { width: 100%; }
-
-.secondary {
-    background: #20364e;
-    color: var(--texto);
+.field input::placeholder {
+  color: #63718e;
 }
 
-.house-info {
-    min-height: 85px;
-    color: var(--suave);
-    font-size: 13px;
-    line-height: 1.7;
+.full {
+  width: 100%;
 }
 
-.house-info strong { color: var(--texto); }
-
-.vote-row {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.vote-row button { flex: 1; }
-
-.president {
-    padding: 12px;
-    border-radius: 10px;
-    background: #0b1928;
-    border: 1px solid var(--borda);
-    line-height: 1.6;
-    font-size: 13px;
-}
-
-.president .crown { font-size: 22px; }
-
-.ranking {
-    display: grid;
-    gap: 9px;
-}
-
-.rank-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 9px;
-    background: #0b1928;
-    font-size: 13px;
-}
-
-.rank-number {
-    display: grid;
-    place-items: center;
-    flex: 0 0 29px;
-    width: 29px;
-    height: 29px;
-    border-radius: 8px;
-    background: #20364e;
-    font-weight: 800;
-}
-
-.rank-main { min-width: 0; flex: 1; }
-.rank-main strong { display: block; overflow-wrap: anywhere; }
-.rank-main small { color: var(--suave); }
-
-.rank-votes {
-    color: var(--verde);
-    font-weight: 800;
-    white-space: nowrap;
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+  margin: 12px 0 0;
 }
 
 .message {
-    margin: 0 0 15px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: #102b29;
-    color: #a8f6d2;
-    font-size: 13px;
-    line-height: 1.5;
-    display: none;
+  display: none;
+  margin-top: 12px;
+  padding: 11px;
+  border-radius: 9px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.message.show {
+  display: block;
+}
+
+.message.success {
+  background: #17372f;
+  color: #8ff0c7;
 }
 
 .message.error {
-    background: #351b25;
-    color: #ffc2cc;
+  background: #40202d;
+  color: #ffb1be;
+}
+
+.house-list {
+  display: grid;
+  gap: 10px;
+}
+
+.house {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 11px;
+  padding: 12px;
+  background: #10182b;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.house:hover {
+  border-color: #657fff;
+}
+
+.house.selected {
+  border-color: var(--green);
+}
+
+.house-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  background: #243452;
+  border-radius: 10px;
+}
+
+.house-name {
+  font-weight: 800;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.house-meta {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 5px;
+  line-height: 1.6;
+}
+
+.house-actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+
+.house-actions button {
+  padding: 7px 9px;
+  font-size: 11px;
+}
+
+.level {
+  color: var(--yellow);
+}
+
+.president {
+  color: var(--green);
+}
+
+.empty {
+  padding: 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
 }
 
 footer {
-    padding: 24px 16px;
-    text-align: center;
-    color: var(--suave);
-    font-size: 12px;
-    line-height: 1.7;
+  width: min(1450px, 94%);
+  margin: 0 auto;
+  padding: 20px 0 35px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+footer strong {
+  color: var(--text);
 }
 
 @media (max-width: 900px) {
-    .layout { grid-template-columns: 1fr; }
-    .sidebar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    #mapa { height: 470px; }
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .map-wrap {
+    height: 460px;
+  }
 }
 
-@media (max-width: 560px) {
-    main { padding: 13px; }
-    header { padding: 15px; }
-    .stats { gap: 7px; }
-    .stat { padding: 11px; }
-    .stat strong { font-size: 21px; }
-    .stat small { font-size: 11px; }
-    .sidebar { grid-template-columns: 1fr; }
-    #mapa { height: 390px; }
+@media (max-width: 520px) {
+  header {
+    padding: 15px 4%;
+  }
+
+  .logo {
+    font-size: 19px;
+  }
+
+  .status {
+    font-size: 10px;
+    padding: 8px;
+  }
+
+  main {
+    width: 94%;
+    margin-top: 22px;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+
+  .stat {
+    padding: 12px;
+  }
+
+  .stat strong {
+    font-size: 21px;
+  }
+
+  .stat small {
+    font-size: 10px;
+  }
+
+  .map-wrap {
+    height: 360px;
+  }
 }
 </style>
 </head>
 
 <body>
-
 <header>
+  <div>
     <div class="logo">3st0un0m4p4 <span>●</span></div>
-    <div id="status" class="status">Carregando configurações...</div>
+    <div class="subtitle">ESTOU NO MAPA · BRASIL</div>
+  </div>
+  <div class="status" id="status">● Preparando o mapa...</div>
 </header>
 
 <main>
-    <section class="intro">
-        <h1>Você está no mapa. 🇧🇷</h1>
-        <p>Crie sua casa, conquiste votos e dispute a liderança da sua cidade.</p>
-    </section>
+  <section class="hero">
+    <h1>Sua casa. Sua cidade. Seu mapa. 🇧🇷</h1>
+    <p>
+      Crie sua casa no mapa 3D do Brasil, receba votos, evolua de nível
+      e dispute o título de presidente da sua cidade.
+    </p>
+  </section>
 
-    <div id="mensagem" class="message"></div>
+  <section class="stats">
+    <div class="stat">
+      <small>Casas no mapa</small>
+      <strong id="totalCasas">0</strong>
+    </div>
+    <div class="stat">
+      <small>Votos registrados</small>
+      <strong id="totalVotos">0</strong>
+    </div>
+    <div class="stat">
+      <small>Cidades representadas</small>
+      <strong id="totalCidades">0</strong>
+    </div>
+  </section>
 
-    <section class="stats">
-        <div class="stat">
-            <small>Casas criadas</small>
-            <strong id="totalCasas">0</strong>
+  <section class="layout">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>🌎 Mapa 3D do Brasil</h2>
+          <p>Arraste para girar. Use a roda do mouse para aproximar.</p>
         </div>
-        <div class="stat">
-            <small>Cidades presentes</small>
-            <strong id="totalCidades">0</strong>
+        <div class="map-controls">
+          <button class="small-button" id="btnVisao" type="button">Visão inicial</button>
         </div>
-        <div class="stat">
-            <small>Votos registrados</small>
-            <strong id="totalVotos">0</strong>
-        </div>
-    </section>
+      </div>
 
-    <section class="layout">
-        <div class="panel map-panel">
-            <div class="map-heading">
-                <h2>Mapa 3D do Brasil</h2>
-                <span>Clique em uma casa para ver os detalhes</span>
+      <div class="map-wrap">
+        <canvas id="mapa" aria-label="Mapa tridimensional do Brasil com casas"></canvas>
+        <div class="map-label">
+          🏠 Casas no mapa<br>
+          🟢 Presidente da cidade<br>
+          🖱️ Arraste para girar
+        </div>
+      </div>
+    </div>
+
+    <div class="side">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>🏠 Construir uma casa</h2>
+            <p>Escolha um nome e represente sua cidade.</p>
+          </div>
+        </div>
+
+        <div class="form-body">
+          <form id="formCasa">
+            <div class="field">
+              <label for="nomeCasa">Nome da casa</label>
+              <input id="nomeCasa" maxlength="45" required
+                placeholder="Ex.: Casa do LuCarrilho">
             </div>
-            <div id="mapa" aria-label="Mapa interativo do Brasil"></div>
-            <div class="map-tip">
-                Arraste para girar o mapa e use a roda do mouse para aproximar ou afastar.
-                A localização das casas é aproximada.
+
+            <div class="field">
+              <label for="usuarioCasa">Nome de usuário</label>
+              <input id="usuarioCasa" maxlength="24" required
+                placeholder="Ex.: lucarrilho">
             </div>
+
+            <div class="field">
+              <label for="cidadeCasa">Cidade</label>
+              <input id="cidadeCasa" maxlength="60" required
+                placeholder="Ex.: Curitiba">
+            </div>
+
+            <div class="field">
+              <label for="estadoCasa">Estado</label>
+              <select id="estadoCasa" required>
+                <option value="">Selecione o estado</option>
+                <option value="AC">Acre (AC)</option>
+                <option value="AL">Alagoas (AL)</option>
+                <option value="AP">Amapá (AP)</option>
+                <option value="AM">Amazonas (AM)</option>
+                <option value="BA">Bahia (BA)</option>
+                <option value="CE">Ceará (CE)</option>
+                <option value="DF">Distrito Federal (DF)</option>
+                <option value="ES">Espírito Santo (ES)</option>
+                <option value="GO">Goiás (GO)</option>
+                <option value="MA">Maranhão (MA)</option>
+                <option value="MT">Mato Grosso (MT)</option>
+                <option value="MS">Mato Grosso do Sul (MS)</option>
+                <option value="MG">Minas Gerais (MG)</option>
+                <option value="PA">Pará (PA)</option>
+                <option value="PB">Paraíba (PB)</option>
+                <option value="PR">Paraná (PR)</option>
+                <option value="PE">Pernambuco (PE)</option>
+                <option value="PI">Piauí (PI)</option>
+                <option value="RJ">Rio de Janeiro (RJ)</option>
+                <option value="RN">Rio Grande do Norte (RN)</option>
+                <option value="RS">Rio Grande do Sul (RS)</option>
+                <option value="RO">Rondônia (RO)</option>
+                <option value="RR">Roraima (RR)</option>
+                <option value="SC">Santa Catarina (SC)</option>
+                <option value="SP">São Paulo (SP)</option>
+                <option value="SE">Sergipe (SE)</option>
+                <option value="TO">Tocantins (TO)</option>
+              </select>
+            </div>
+
+            <button class="button primary full" type="submit">
+              + Construir minha casa
+            </button>
+
+            <div class="message" id="formMessage" role="status"></div>
+          </form>
+
+          <p class="note">
+            Limite configurável: uma casa por nome de usuário.
+            Os dados desta demonstração ficam salvos neste navegador.
+          </p>
         </div>
+      </section>
 
-        <aside class="sidebar">
-            <section class="panel">
-                <h2>🏠 Criar minha casa</h2>
-
-                <form id="formCasa">
-                    <div class="field">
-                        <label for="nomeCasa">Nome da casa</label>
-                        <input id="nomeCasa" maxlength="50" placeholder="Ex.: Casa do Lucas" required>
-                    </div>
-
-                    <div class="field">
-                        <label for="usuario">Nome de usuário</label>
-                        <input id="usuario" maxlength="30" placeholder="Ex.: lucas41" required>
-                    </div>
-
-                    <div class="field">
-                        <label for="cidade">Cidade</label>
-                        <input id="cidade" maxlength="60" placeholder="Ex.: Curitiba" required>
-                    </div>
-
-                    <div class="field">
-                        <label for="estado">Estado</label>
-                        <select id="estado" required>
-                            <option value="">Selecione o estado</option>
-                            <option value="AC">Acre</option>
-                            <option value="AL">Alagoas</option>
-                            <option value="AP">Amapá</option>
-                            <option value="AM">Amazonas</option>
-                            <option value="BA">Bahia</option>
-                            <option value="CE">Ceará</option>
-                            <option value="DF">Distrito Federal</option>
-                            <option value="ES">Espírito Santo</option>
-                            <option value="GO">Goiás</option>
-                            <option value="MA">Maranhão</option>
-                            <option value="MT">Mato Grosso</option>
-                            <option value="MS">Mato Grosso do Sul</option>
-                            <option value="MG">Minas Gerais</option>
-                            <option value="PA">Pará</option>
-                            <option value="PB">Paraíba</option>
-                            <option value="PR">Paraná</option>
-                            <option value="PE">Pernambuco</option>
-                            <option value="PI">Piauí</option>
-                            <option value="RJ">Rio de Janeiro</option>
-                            <option value="RN">Rio Grande do Norte</option>
-                            <option value="RS">Rio Grande do Sul</option>
-                            <option value="RO">Rondônia</option>
-                            <option value="RR">Roraima</option>
-                            <option value="SC">Santa Catarina</option>
-                            <option value="SP">São Paulo</option>
-                            <option value="SE">Sergipe</option>
-                            <option value="TO">Tocantins</option>
-                        </select>
-                    </div>
-
-                    <button id="criarBtn" class="full" type="submit">
-                        Criar casa
-                    </button>
-                </form>
-
-                <p class="form-note">
-                    As regras de criação são carregadas do arquivo info.json.
-                </p>
-            </section>
-
-            <section class="panel">
-                <h2>🔎 Casa selecionada</h2>
-                <div id="detalhesCasa" class="house-info">
-                    Selecione uma casa no mapa ou no ranking.
-                </div>
-                <div class="vote-row">
-                    <button id="votarBtn" disabled>👍 Votar</button>
-                    <button id="verCasaBtn" class="secondary" disabled>Selecionar</button>
-                </div>
-                <p class="form-note">
-                    Neste protótipo, cada navegador pode votar uma vez em cada casa.
-                </p>
-            </section>
-
-            <section class="panel">
-                <h2>👑 Presidente da cidade</h2>
-                <div id="presidente" class="president">
-                    Crie uma casa para começar a disputa.
-                </div>
-            </section>
-
-            <section class="panel">
-                <h2>🏆 Casas mais votadas</h2>
-                <div id="ranking" class="ranking">
-                    <div class="form-note">Nenhuma casa criada ainda.</div>
-                </div>
-            </section>
-        </aside>
-    </section>
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>🏆 Ranking das casas</h2>
+            <p>As casas com mais votos aparecem primeiro.</p>
+          </div>
+        </div>
+        <div class="list-body">
+          <div class="house-list" id="ranking"></div>
+        </div>
+      </section>
+    </div>
+  </section>
 </main>
 
 <footer>
-    <strong>3st0un0m4p4 — Estou no Mapa</strong><br>
-    Protótipo experimental. Os dados ficam salvos neste navegador.
-    Para compartilhar casas, votos e eleições entre usuários, é necessário um backend.
+  <strong>3st0un0m4p4 — Estou no Mapa</strong><br>
+  Uma casa por usuário, votos e evolução por nível.<br>
+  Demonstração: votação e armazenamento locais. A classificação é calculada
+  com os dados disponíveis neste navegador; ainda não representa uma eleição
+  nacional compartilhada entre jogadores.
 </footer>
 
 <script type="module">
 import * as THREE from
-    "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+  "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
-const CHAVE_DADOS = "3st0un0m4p4-dados-v1";
-const CHAVE_VOTOS = "3st0un0m4p4-votos-v1";
+const CONFIG_URL = "./info.json";
+const GEO_URL =
+  "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson";
 
-let CONFIG;
-let casas = [];
-let votos = {};
-let casaSelecionada = null;
-let mapaCarregado = false;
-let renderer, scene, camera, grupoMapa;
-let raycaster, mouse;
-let objetosCasas = [];
-let arrastando = false;
-let movimentoMouse = false;
-let inicioX = 0;
-let inicioY = 0;
-let rotacaoY = 0;
-let zoom = 1;
-let geoFeatures = [];
-let casasGrupo;
-let pontosCidade = [];
-let estadoDoMapa = "inicializando";
+const STORAGE_CASAS = "3st0un0m4p4-casas-v2";
+const STORAGE_VOTOS = "3st0un0m4p4-votos-v2";
+
+const centros = {
+  AC: [-9.97, -67.81],
+  AL: [-9.65, -35.74],
+  AP: [0.03, -51.07],
+  AM: [-3.1, -60.02],
+  BA: [-12.97, -38.5],
+  CE: [-3.72, -38.54],
+  DF: [-15.79, -47.88],
+  ES: [-20.32, -40.34],
+  GO: [-16.68, -49.25],
+  MA: [-2.53, -44.3],
+  MT: [-15.6, -56.1],
+  MS: [-20.45, -54.62],
+  MG: [-19.92, -43.94],
+  PA: [-1.45, -48.5],
+  PB: [-7.12, -34.86],
+  PR: [-25.43, -49.27],
+  PE: [-8.05, -34.9],
+  PI: [-5.09, -42.8],
+  RJ: [-22.91, -43.2],
+  RN: [-5.79, -35.21],
+  RS: [-30.03, -51.23],
+  RO: [-8.76, -63.9],
+  RR: [2.82, -60.67],
+  SC: [-27.59, -48.55],
+  SP: [-23.55, -46.63],
+  SE: [-10.91, -37.07],
+  TO: [-10.18, -48.33]
+};
 
 const $ = id => document.getElementById(id);
 
-function mostrarMensagem(texto, erro = false) {
-    const el = $("mensagem");
-    el.textContent = texto;
-    el.className = "message" + (erro ? " error" : "");
-    el.style.display = "block";
+let CONFIG = null;
+let casas = [];
+let votos = {};
+let geojson = null;
+let renderer, scene, camera, controls;
+let mapGroup, houseGroup;
+let raycaster, pointer;
+let selectedId = null;
+let houses3D = [];
+let dragging = false;
+let moved = false;
+let lastX = 0;
+let lastY = 0;
+let rotationY = 0;
+let rotationX = 0.25;
+let zoom = 1;
+let pointerDown = null;
+
+function normalizarUsuario(value) {
+  return String(value || "").trim().replace(/^@/, "").toLowerCase();
 }
 
-function ocultarMensagem() {
-    $("mensagem").style.display = "none";
+function escaparHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
 }
 
-function normalizar(texto) {
-    return String(texto || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim()
-        .toLowerCase();
-}
-
-function numero(valor) {
-    return new Intl.NumberFormat("pt-BR").format(valor || 0);
-}
-
-function gerarId() {
-    return "casa_" + Date.now().toString(36) +
-        "_" + Math.random().toString(36).slice(2, 8);
+function mensagem(texto, tipo = "success") {
+  const el = $("formMessage");
+  el.textContent = texto;
+  el.className = "message show " + tipo;
 }
 
 function salvarDados() {
-    try {
-        localStorage.setItem(CHAVE_DADOS, JSON.stringify(casas));
-        localStorage.setItem(CHAVE_VOTOS, JSON.stringify(votos));
-    } catch (erro) {
-        console.error("Não foi possível salvar os dados:", erro);
-        mostrarMensagem("Não foi possível salvar os dados neste navegador.", true);
-    }
+  try {
+    localStorage.setItem(STORAGE_CASAS, JSON.stringify(casas));
+    localStorage.setItem(STORAGE_VOTOS, JSON.stringify(votos));
+  } catch (error) {
+    console.error(error);
+    mensagem(
+      "Não foi possível salvar no navegador. Verifique o espaço disponível.",
+      "error"
+    );
+  }
 }
 
 function carregarDadosLocais() {
-    try {
-        const dadosCasas = JSON.parse(localStorage.getItem(CHAVE_DADOS) || "[]");
-        const dadosVotos = JSON.parse(localStorage.getItem(CHAVE_VOTOS) || "{}");
+  try {
+    const casasSalvas = JSON.parse(localStorage.getItem(STORAGE_CASAS) || "null");
+    const votosSalvos = JSON.parse(localStorage.getItem(STORAGE_VOTOS) || "null");
 
-        casas = Array.isArray(dadosCasas) ? dadosCasas : [];
-        votos = dadosVotos && typeof dadosVotos === "object" ? dadosVotos : {};
-    } catch {
-        casas = [];
-        votos = {};
+    casas = Array.isArray(casasSalvas) ? casasSalvas : [];
+    votos = votosSalvos && typeof votosSalvos === "object" ? votosSalvos : {};
+  } catch (error) {
+    casas = [];
+    votos = {};
+  }
+
+  const iniciais = Array.isArray(CONFIG.casasIniciais)
+    ? CONFIG.casasIniciais
+    : [];
+
+  for (const inicial of iniciais) {
+    if (!casas.some(casa => casa.id === inicial.id)) {
+      casas.push({
+        ...inicial,
+        usuario: normalizarUsuario(inicial.usuario),
+        votos: Number(inicial.votos) || 0,
+        nivel: Math.max(1, Number(inicial.nivel) || 1)
+      });
     }
+  }
 
-    // Garante os campos necessários em casas criadas por versões anteriores.
-    casas = casas
-        .filter(c => c && typeof c === "object" && c.id)
-        .map(c => ({
-            id: String(c.id),
-            nome: String(c.nome || "Minha Casa"),
-            usuario: String(c.usuario || "usuario"),
-            cidade: String(c.cidade || "Cidade não informada"),
-            estado: String(c.estado || ""),
-            dataCriacao: c.dataCriacao || new Date().toISOString(),
-            votos: Math.max(0, Number(c.votos) || 0),
-            nivel: Math.max(1, Number(c.nivel) || 1)
-        }));
+  // Corrige campos essenciais sem apagar as casas existentes.
+  casas = casas.filter(casa =>
+    casa && casa.id && casa.nome && casa.usuario && casa.estado
+  );
+
+  salvarDados();
 }
 
-function config(path, fallback) {
-    let valor = CONFIG;
-    for (const chave of path.split(".")) {
-        if (valor == null || !(chave in valor)) return fallback;
-        valor = valor[chave];
-    }
-    return valor ?? fallback;
+function contarVotos(casa) {
+  const locais = Number(casa.votos) || 0;
+  const registrados = Array.isArray(votos[casa.id])
+    ? votos[casa.id].length
+    : 0;
+
+  return Math.max(locais, registrados);
 }
 
-async function carregarConfiguracoes() {
-    try {
-        const resposta = await fetch("./info.json", { cache: "no-store" });
-        if (!resposta.ok) {
-            throw new Error("HTTP " + resposta.status);
-        }
+function nivelDaCasa(casa) {
+  const porNivel = Math.max(
+    1,
+    Number(CONFIG.configuracoes?.casas?.votosPorNivel) || 5
+  );
 
-        CONFIG = await resposta.json();
-
-        if (!CONFIG || typeof CONFIG !== "object") {
-            throw new Error("O conteúdo de info.json não é válido.");
-        }
-
-        $("status").textContent =
-            "Configurações carregadas · v" + (CONFIG.versao || "1.0.0");
-
-        iniciarAplicacao();
-    } catch (erro) {
-        console.error(erro);
-        $("status").textContent = "Erro ao carregar info.json";
-        mostrarMensagem(
-            "Não foi possível carregar info.json. Confira se os dois arquivos estão na mesma pasta e abra o projeto usando um servidor local, como o Live Server.",
-            true
-        );
-        $("criarBtn").disabled = true;
-    }
+  return Math.max(
+    Number(casa.nivel) || 1,
+    Math.floor(contarVotos(casa) / porNivel) + 1
+  );
 }
 
-function iniciarAplicacao() {
-    carregarDadosLocais();
-
-    if (!config("configuracoes.casas.permitirCriacao", true)) {
-        $("criarBtn").disabled = true;
-        $("criarBtn").textContent = "Criação desativada";
-    }
-
-    iniciarCena();
-    atualizarInterface();
-    carregarMapaBrasil();
+function cidadeChave(casa) {
+  return `${String(casa.cidade || "").trim().toLowerCase()}-${casa.estado}`;
 }
 
-function iniciarCena() {
-    const container = $("mapa");
+function presidentesPorCidade() {
+  const resultado = {};
 
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color("#091725");
+  for (const casa of casas) {
+    const chave = cidadeChave(casa);
 
-    camera = new THREE.PerspectiveCamera(
-        42,
-        container.clientWidth / container.clientHeight,
-        0.1,
-        1000
+    if (
+      !resultado[chave] ||
+      contarVotos(casa) > contarVotos(resultado[chave]) ||
+      (
+        contarVotos(casa) === contarVotos(resultado[chave]) &&
+        String(casa.id).localeCompare(String(resultado[chave].id)) < 0
+      )
+    ) {
+      resultado[chave] = casa;
+    }
+  }
+
+  return resultado;
+}
+
+function ehPresidente(casa) {
+  return presidentesPorCidade()[cidadeChave(casa)]?.id === casa.id;
+}
+
+function projetar(lat, lon) {
+  // Projeção aproximada para exibição do mapa brasileiro em um plano 3D.
+  return new THREE.Vector3(
+    (lon + 54) * 0.65,
+    0,
+    -(lat + 15) * 0.65
+  );
+}
+
+function coordenadasCasa(casa) {
+  const centro = centros[casa.estado] || [-15.8, -47.9];
+
+  // Pequeno deslocamento determinístico para diferenciar casas no mesmo estado.
+  const lista = casas.filter(item => item.estado === casa.estado);
+  const indice = Math.max(0, lista.findIndex(item => item.id === casa.id));
+  const angulo = indice * 2.399;
+  const distancia = Math.floor(indice / 5) * 0.45 + (indice % 5) * 0.16;
+
+  return [
+    centro[0] + Math.cos(angulo) * distancia,
+    centro[1] + Math.sin(angulo) * distancia
+  ];
+}
+
+function geometriaCasa(casa) {
+  const grupo = new THREE.Group();
+  const nivel = nivelDaCasa(casa);
+  const escala = 0.8 + Math.min(nivel - 1, 10) * 0.08;
+  const presidente = ehPresidente(casa);
+  const cor = presidente ? 0x4de0a2 : 0x8aa2ff;
+
+  const materialParede = new THREE.MeshStandardMaterial({
+    color: cor,
+    roughness: 0.65
+  });
+
+  const materialTelhado = new THREE.MeshStandardMaterial({
+    color: presidente ? 0xffd166 : 0xff7388,
+    roughness: 0.65
+  });
+
+  const paredes = new THREE.Mesh(
+    new THREE.BoxGeometry(0.85, 0.65, 0.75),
+    materialParede
+  );
+  paredes.position.y = 0.45;
+  grupo.add(paredes);
+
+  const telhado = new THREE.Mesh(
+    new THREE.ConeGeometry(0.72, 0.55, 4),
+    materialTelhado
+  );
+  telhado.position.y = 1.02;
+  telhado.rotation.y = Math.PI / 4;
+  grupo.add(telhado);
+
+  const porta = new THREE.Mesh(
+    new THREE.BoxGeometry(0.18, 0.34, 0.04),
+    new THREE.MeshStandardMaterial({ color: 0x26334c })
+  );
+  porta.position.set(0, 0.22, 0.39);
+  grupo.add(porta);
+
+  const janelaMaterial = new THREE.MeshStandardMaterial({
+    color: 0xc9f2ff,
+    emissive: 0x18364a
+  });
+
+  for (const x of [-0.25, 0.25]) {
+    const janela = new THREE.Mesh(
+      new THREE.BoxGeometry(0.14, 0.14, 0.035),
+      janelaMaterial
     );
+    janela.position.set(x, 0.52, 0.39);
+    grupo.add(janela);
+  }
 
-    camera.position.set(0, 21, 24);
-    camera.lookAt(0, 0, 0);
+  const base = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.8, 0.8, 0.05, 24),
+    new THREE.MeshStandardMaterial({
+      color: presidente ? 0x28674f : 0x304365
+    })
+  );
+  base.position.y = 0.025;
+  grupo.add(base);
 
-    renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: false
-    });
+  grupo.scale.setScalar(escala);
+  grupo.userData.houseId = casa.id;
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    container.replaceChildren(renderer.domElement);
+  const [lat, lon] = coordenadasCasa(casa);
+  grupo.position.copy(projetar(lat, lon));
+  grupo.position.y = 0.05;
 
-    scene.add(new THREE.AmbientLight(0xffffff, 2));
-
-    const luz = new THREE.DirectionalLight(0xffffff, 2.2);
-    luz.position.set(-8, 20, 12);
-    scene.add(luz);
-
-    grupoMapa = new THREE.Group();
-    scene.add(grupoMapa);
-
-    casasGrupo = new THREE.Group();
-    grupoMapa.add(casasGrupo);
-
-    raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
-
-    renderer.domElement.addEventListener("pointerdown", aoIniciarArraste);
-    renderer.domElement.addEventListener("pointermove", aoMoverPonteiro);
-    renderer.domElement.addEventListener("pointerup", aoSoltarPonteiro);
-    renderer.domElement.addEventListener("pointercancel", () => {
-        arrastando = false;
-    });
-    renderer.domElement.addEventListener("wheel", aoRolar, { passive: false });
-
-    window.addEventListener("resize", redimensionar);
-    animar();
-}
-
-function projetar(lon, lat) {
-    return {
-        x: (lon + 54) * 0.45,
-        z: -(lat + 15) * 0.45
-    };
-}
-
-function converterCoordenadas(coords) {
-    return coords.map(([lon, lat]) => projetar(lon, lat));
-}
-
-function adicionarPoligono(coordenadas) {
-    if (!coordenadas || !coordenadas.length) return;
-
-    const anel = converterCoordenadas(coordenadas[0]);
-    if (anel.length < 3) return;
-
-    const forma = new THREE.Shape();
-    forma.moveTo(anel[0].x, -anel[0].z);
-
-    for (let i = 1; i < anel.length; i++) {
-        forma.lineTo(anel[i].x, -anel[i].z);
+  grupo.traverse(obj => {
+    if (obj.isMesh) {
+      obj.userData.houseId = casa.id;
     }
-    forma.closePath();
+  });
 
-    const geometria = new THREE.ShapeGeometry(forma);
-    const material = new THREE.MeshStandardMaterial({
-        color: "#173b43",
-        roughness: 0.92,
-        metalness: 0.02,
-        side: THREE.DoubleSide
-    });
+  return grupo;
+}
 
-    const terreno = new THREE.Mesh(geometria, material);
-    terreno.rotation.x = -Math.PI / 2;
-    terreno.position.y = 0;
-    grupoMapa.add(terreno);
+function desenharPoligono(coords, material) {
+  if (!Array.isArray(coords) || coords.length < 3) return;
 
-    // Contorno do estado.
-    const pontos = anel.map(p => new THREE.Vector3(p.x, 0.045, p.z));
-    pontos.push(pontos[0].clone());
+  const pontos = coords.map(([lon, lat]) => {
+    const p = projetar(lat, lon);
+    return new THREE.Vector3(p.x, 0.015, p.z);
+  });
 
-    const linha = new THREE.Line(
-        new THREE.BufferGeometry().setFromPoints(pontos),
-        new THREE.LineBasicMaterial({
-            color: "#4c8e8b",
-            transparent: true,
-            opacity: 0.85
-        })
+  const vertices = [];
+  for (let i = 0; i < pontos.length; i++) {
+    const a = pontos[i];
+    const b = pontos[(i + 1) % pontos.length];
+    vertices.push(a.x, a.y, a.z, b.x, b.y, b.z);
+  }
+
+  const geometria = new THREE.BufferGeometry();
+  geometria.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(vertices, 3)
+  );
+
+  const linhas = new THREE.LineSegments(geometria, material);
+  mapGroup.add(linhas);
+}
+
+function desenharGeoJSON(data) {
+  const linhas = new THREE.LineBasicMaterial({
+    color: 0x6782a8,
+    transparent: true,
+    opacity: 0.82
+  });
+
+  for (const feature of data.features || []) {
+    const geometry = feature.geometry;
+    if (!geometry) continue;
+
+    const poligonos = geometry.type === "Polygon"
+      ? [geometry.coordinates]
+      : geometry.type === "MultiPolygon"
+        ? geometry.coordinates
+        : [];
+
+    for (const poligono of poligonos) {
+      // O primeiro anel define o contorno externo do estado.
+      if (poligono[0]) {
+        desenharPoligono(poligono[0], linhas);
+      }
+    }
+  }
+}
+
+function atualizarCasas3D() {
+  if (!houseGroup) return;
+
+  houseGroup.clear();
+  houses3D = [];
+
+  for (const casa of casas) {
+    const objeto = geometriaCasa(casa);
+    houseGroup.add(objeto);
+    houses3D.push(objeto);
+  }
+}
+
+function configurarMapa() {
+  const canvas = $("mapa");
+
+  renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true
+  });
+
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setClearColor(0x000000, 0);
+
+  scene = new THREE.Scene();
+
+  camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1000);
+  camera.position.set(0, 45, 44);
+
+  scene.add(new THREE.HemisphereLight(0xdbe8ff, 0x19243d, 2.2));
+
+  const luz = new THREE.DirectionalLight(0xffffff, 2);
+  luz.position.set(-15, 35, 20);
+  scene.add(luz);
+
+  mapGroup = new THREE.Group();
+  houseGroup = new THREE.Group();
+
+  scene.add(mapGroup);
+  scene.add(houseGroup);
+
+  const piso = new THREE.Mesh(
+    new THREE.PlaneGeometry(70, 70),
+    new THREE.MeshStandardMaterial({
+      color: 0x12243a,
+      roughness: 0.95,
+      metalness: 0.05
+    })
+  );
+  piso.rotation.x = -Math.PI / 2;
+  piso.position.y = -0.1;
+  scene.add(piso);
+
+  raycaster = new THREE.Raycaster();
+  pointer = new THREE.Vector2();
+
+  redimensionarMapa();
+  window.addEventListener("resize", redimensionarMapa);
+
+  canvas.addEventListener("pointerdown", iniciarArrasto);
+  canvas.addEventListener("pointermove", moverArrasto);
+  canvas.addEventListener("pointerup", terminarArrasto);
+  canvas.addEventListener("pointercancel", terminarArrasto);
+  canvas.addEventListener("wheel", evento => {
+    evento.preventDefault();
+    zoom = THREE.MathUtils.clamp(
+      zoom + (evento.deltaY > 0 ? -0.08 : 0.08),
+      0.65,
+      2
     );
+  }, { passive: false });
 
-    grupoMapa.add(linha);
+  $("btnVisao").addEventListener("click", () => {
+    rotationY = 0;
+    rotationX = 0.25;
+    zoom = 1;
+    selecionarCasa(null);
+  });
+
+  animar();
 }
 
-async function carregarMapaBrasil() {
-    const fontes = [
-        "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson"
-    ];
+function redimensionarMapa() {
+  if (!renderer || !camera) return;
 
-    try {
-        let geojson;
+  const canvas = $("mapa");
+  const largura = canvas.clientWidth || 800;
+  const altura = canvas.clientHeight || 500;
 
-        for (const url of fontes) {
-            try {
-                const resposta = await fetch(url);
-                if (!resposta.ok) continue;
-                geojson = await resposta.json();
-                break;
-            } catch (erro) {
-                console.warn("Falha ao buscar o mapa:", erro);
-            }
-        }
-
-        if (!geojson || !Array.isArray(geojson.features)) {
-            throw new Error("O mapa geográfico não foi encontrado.");
-        }
-
-        geoFeatures = geojson.features;
-
-        for (const feature of geoFeatures) {
-            const geometria = feature.geometry;
-            if (!geometria) continue;
-
-            if (geometria.type === "Polygon") {
-                adicionarPoligono(geometria.coordinates);
-            } else if (geometria.type === "MultiPolygon") {
-                geometria.coordinates.forEach(adicionarPoligono);
-            }
-        }
-
-        mapaCarregado = true;
-        estadoDoMapa = "carregado";
-        desenharCasas();
-        $("status").textContent =
-            "Mapa carregado · " + geoFeatures.length + " áreas geográficas";
-    } catch (erro) {
-        console.error(erro);
-        estadoDoMapa = "erro";
-        $("status").textContent = "Mapa geográfico indisponível";
-        mostrarMensagem(
-            "Não foi possível carregar o contorno geográfico do Brasil. Verifique sua conexão com a internet. A criação e a listagem de casas continuam disponíveis.",
-            true
-        );
-        desenharCasas();
-    }
+  renderer.setSize(largura, altura, false);
+  camera.aspect = largura / altura;
+  camera.updateProjectionMatrix();
 }
 
-// Coordenadas aproximadas de capitais brasileiras.
-const coordenadasCapitais = {
-    "rio branco": [-67.81, -9.97],
-    "maceio": [-35.74, -9.65],
-    "macapa": [-51.07, 0.03],
-    "manaus": [-60.02, -3.1],
-    "salvador": [-38.5, -12.97],
-    "fortaleza": [-38.54, -3.72],
-    "brasilia": [-47.88, -15.79],
-    "vitoria": [-40.34, -20.32],
-    "goiania": [-49.26, -16.68],
-    "sao luis": [-44.3, -2.53],
-    "cuiaba": [-56.1, -15.6],
-    "campo grande": [-54.62, -20.45],
-    "belo horizonte": [-43.94, -19.92],
-    "belem": [-48.5, -1.46],
-    "joao pessoa": [-34.86, -7.12],
-    "curitiba": [-49.27, -25.43],
-    "recife": [-34.88, -8.05],
-    "teresina": [-42.8, -5.09],
-    "rio de janeiro": [-43.2, -22.91],
-    "natal": [-35.21, -5.79],
-    "porto alegre": [-51.23, -30.03],
-    "porto velho": [-63.9, -8.76],
-    "boa vista": [-60.67, 2.82],
-    "florianopolis": [-48.55, -27.6],
-    "sao paulo": [-46.63, -23.55],
-    "aracaju": [-37.07, -10.91],
-    "palmas": [-48.33, -10.18]
-};
-
-const centrosEstados = {
-    AC: [-68.5, -9.5], AL: [-36.5, -9.6], AP: [-51.5, 1.0],
-    AM: [-63.0, -4.0], BA: [-41.5, -12.5], CE: [-39.5, -5.0],
-    DF: [-47.9, -15.8], ES: [-40.5, -19.5], GO: [-49.5, -16.0],
-    MA: [-45.0, -5.0], MT: [-56.0, -13.0], MS: [-55.0, -20.0],
-    MG: [-44.0, -18.5], PA: [-52.0, -4.0], PB: [-36.5, -7.2],
-    PR: [-51.5, -24.5], PE: [-37.5, -8.3], PI: [-42.5, -7.0],
-    RJ: [-43.5, -22.5], RN: [-36.5, -5.8], RS: [-53.0, -29.0],
-    RO: [-63.0, -10.5], RR: [-61.0, 2.0], SC: [-50.0, -27.0],
-    SP: [-48.5, -22.5], SE: [-37.3, -10.6], TO: [-48.0, -10.0]
-};
-
-function coordenadaCasa(casa, indice = 0) {
-    const cidade = normalizar(casa.cidade);
-    let coordenadas = coordenadasCapitais[cidade];
-
-    if (!coordenadas) {
-        coordenadas = centrosEstados[casa.estado] || [-51, -14];
-    }
-
-    const p = projetar(coordenadas[0], coordenadas[1]);
-
-    // Pequeno deslocamento visual para separar casas na mesma região.
-    const mesmaRegiao = casas.filter(c =>
-        normalizar(c.cidade) === normalizar(casa.cidade) &&
-        c.estado === casa.estado
-    );
-    const posicao = mesmaRegiao.findIndex(c => c.id === casa.id);
-    const angulo = Math.max(0, posicao) * 2.399;
-    const raio = Math.min(0.18 + Math.max(0, posicao) * 0.035, 0.75);
-
-    return {
-        x: p.x + Math.cos(angulo) * raio,
-        z: p.z + Math.sin(angulo) * raio
-    };
+function iniciarArrasto(evento) {
+  dragging = true;
+  moved = false;
+  lastX = evento.clientX;
+  lastY = evento.clientY;
+  pointerDown = { x: evento.clientX, y: evento.clientY };
+  $("mapa").setPointerCapture?.(evento.pointerId);
 }
 
-function criarCasaVisual(casa) {
-    const grupo = new THREE.Group();
-    const p = coordenadaCasa(casa);
+function moverArrasto(evento) {
+  if (!dragging) return;
 
-    grupo.position.set(p.x, 0.07, p.z);
-    grupo.userData.casaId = casa.id;
+  const dx = evento.clientX - lastX;
+  const dy = evento.clientY - lastY;
 
-    const destaque = casaSelecionada === casa.id;
-    const presidente = obterPresidente(casa.cidade, casa.estado);
-    const ePresidente = presidente && presidente.id === casa.id;
+  if (Math.abs(dx) + Math.abs(dy) > 3) moved = true;
 
-    const cor = ePresidente ? "#ffd166" :
-        destaque ? "#55aaff" : "#46e6a5";
+  rotationY += dx * 0.008;
+  rotationX = THREE.MathUtils.clamp(
+    rotationX + dy * 0.004,
+    -0.25,
+    0.85
+  );
 
-    const base = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.24, 0.28, 0.10, 12),
-        new THREE.MeshStandardMaterial({
-            color: cor,
-            emissive: cor,
-            emissiveIntensity: destaque ? 0.55 : 0.18
-        })
-    );
-    base.position.y = 0.05;
-    base.userData.casaId = casa.id;
-    grupo.add(base);
-
-    const paredes = new THREE.Mesh(
-        new THREE.BoxGeometry(0.27, 0.23, 0.25),
-        new THREE.MeshStandardMaterial({
-            color: destaque ? "#c8e7ff" : "#e8f2ff",
-            roughness: 0.7
-        })
-    );
-    paredes.position.y = 0.20;
-    paredes.userData.casaId = casa.id;
-    grupo.add(paredes);
-
-    const telhadoGeometria = new THREE.ConeGeometry(0.22, 0.20, 4);
-    const telhado = new THREE.Mesh(
-        telhadoGeometria,
-        new THREE.MeshStandardMaterial({
-            color: ePresidente ? "#ffd166" : "#46a5e8"
-        })
-    );
-    telhado.rotation.y = Math.PI / 4;
-    telhado.position.y = 0.415;
-    telhado.userData.casaId = casa.id;
-    grupo.add(telhado);
-
-    const etiqueta = criarEtiqueta(
-        (ePresidente ? "★ " : "") + casa.nome,
-        cor
-    );
-    etiqueta.position.set(0, 0.78, 0);
-    grupo.add(etiqueta);
-
-    grupo.traverse(obj => {
-        if (obj.isMesh) {
-            obj.userData.casaId = casa.id;
-        }
-    });
-
-    return grupo;
+  lastX = evento.clientX;
+  lastY = evento.clientY;
 }
 
-function criarEtiqueta(texto, cor) {
-    const canvas = document.createElement("canvas");
-    const contexto = canvas.getContext("2d");
-    canvas.width = 512;
-    canvas.height = 100;
+function terminarArrasto(evento) {
+  if (!dragging) return;
+  dragging = false;
 
-    contexto.fillStyle = "rgba(5, 15, 26, 0.88)";
-    contexto.beginPath();
-    contexto.roundRect(3, 3, 506, 94, 18);
-    contexto.fill();
+  if (!moved && pointerDown) {
+    selecionarPeloClique(evento);
+  }
 
-    contexto.strokeStyle = cor;
-    contexto.lineWidth = 4;
-    contexto.stroke();
-
-    contexto.font = "bold 30px Arial";
-    contexto.textAlign = "center";
-    contexto.textBaseline = "middle";
-    contexto.fillStyle = "#ffffff";
-
-    let rotulo = texto;
-    while (contexto.measureText(rotulo).width > 460 && rotulo.length > 4) {
-        rotulo = rotulo.slice(0, -4) + "...";
-    }
-
-    contexto.fillText(rotulo, 256, 50);
-
-    const textura = new THREE.CanvasTexture(canvas);
-    textura.colorSpace = THREE.SRGBColorSpace;
-
-    const sprite = new THREE.Sprite(
-        new THREE.SpriteMaterial({
-            map: textura,
-            transparent: true,
-            depthTest: false
-        })
-    );
-
-    sprite.scale.set(1.65, 0.33, 1);
-    sprite.renderOrder = 10;
-    return sprite;
+  pointerDown = null;
 }
 
-function desenharCasas() {
-    if (!casasGrupo) return;
+function selecionarPeloClique(evento) {
+  const canvas = $("mapa");
+  const rect = canvas.getBoundingClientRect();
 
-    while (casasGrupo.children.length) {
-        const objeto = casasGrupo.children[0];
-        casasGrupo.remove(objeto);
+  pointer.x = ((evento.clientX - rect.left) / rect.width) * 2 - 1;
+  pointer.y = -((evento.clientY - rect.top) / rect.height) * 2 + 1;
 
-        objeto.traverse(item => {
-            if (item.geometry) item.geometry.dispose();
-            if (item.material) {
-                const materiais = Array.isArray(item.material)
-                    ? item.material : [item.material];
+  raycaster.setFromCamera(pointer, camera);
 
-                materiais.forEach(material => {
-                    if (material.map) material.map.dispose();
-                    material.dispose();
-                });
-            }
-        });
-    }
+  const objetos = raycaster.intersectObjects(houses3D, true);
+  if (!objetos.length) return;
 
-    objetosCasas = [];
+  let objeto = objetos[0].object;
+  while (objeto && !objeto.userData.houseId) {
+    objeto = objeto.parent;
+  }
 
-    casas.forEach(casa => {
-        const visual = criarCasaVisual(casa);
-        casasGrupo.add(visual);
-        objetosCasas.push(visual);
-    });
-}
-
-function obterPresidente(cidade, estado) {
-    if (!config("configuracoes.cidades.elegerPresidente", true)) {
-        return null;
-    }
-
-    const daCidade = casas.filter(c =>
-        normalizar(c.cidade) === normalizar(cidade) &&
-        c.estado === estado
-    );
-
-    if (!daCidade.length) return null;
-
-    daCidade.sort((a, b) => {
-        if (b.votos !== a.votos) return b.votos - a.votos;
-        return String(a.dataCriacao).localeCompare(String(b.dataCriacao));
-    });
-
-    return daCidade[0];
-}
-
-function casasOrdenadas() {
-    return [...casas].sort((a, b) =>
-        b.votos - a.votos ||
-        String(a.nome).localeCompare(String(b.nome))
-    );
-}
-
-function atualizarInterface() {
-    $("totalCasas").textContent = numero(casas.length);
-
-    const cidades = new Set(
-        casas.map(c => normalizar(c.cidade) + "|" + c.estado)
-    );
-    $("totalCidades").textContent = numero(cidades.size);
-
-    $("totalVotos").textContent = numero(
-        casas.reduce((total, casa) => total + casa.votos, 0)
-    );
-
-    atualizarRanking();
-    atualizarPresidente();
-    atualizarDetalhes();
-    atualizarBotoes();
-
-    if (casasGrupo && mapaCarregado) desenharCasas();
-}
-
-function atualizarRanking() {
-    const ranking = $("ranking");
-    ranking.replaceChildren();
-
-    const ordenadas = casasOrdenadas().slice(0, 10);
-
-    if (!ordenadas.length) {
-        const vazio = document.createElement("div");
-        vazio.className = "form-note";
-        vazio.textContent = "Nenhuma casa criada ainda.";
-        ranking.appendChild(vazio);
-        return;
-    }
-
-    ordenadas.forEach((casa, indice) => {
-        const item = document.createElement("div");
-        item.className = "rank-item";
-        item.tabIndex = 0;
-        item.setAttribute("role", "button");
-        item.setAttribute("aria-label", "Selecionar " + casa.nome);
-
-        const numeroEl = document.createElement("div");
-        numeroEl.className = "rank-number";
-        numeroEl.textContent = indice + 1;
-
-        const principal = document.createElement("div");
-        principal.className = "rank-main";
-
-        const nome = document.createElement("strong");
-        nome.textContent = casa.nome;
-
-        const local = document.createElement("small");
-        local.textContent = casa.cidade + " - " + casa.estado;
-
-        principal.append(nome, local);
-
-        const votosEl = document.createElement("div");
-        votosEl.className = "rank-votes";
-        votosEl.textContent = "▲ " + numero(casa.votos);
-
-        item.append(numeroEl, principal, votosEl);
-
-        item.addEventListener("click", () => selecionarCasa(casa.id));
-        item.addEventListener("keydown", e => {
-            if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                selecionarCasa(casa.id);
-            }
-        });
-
-        ranking.appendChild(item);
-    });
-}
-
-function atualizarPresidente() {
-    const elemento = $("presidente");
-
-    if (!config("configuracoes.cidades.elegerPresidente", true)) {
-        elemento.textContent = "A eleição de presidentes está desativada no info.json.";
-        return;
-    }
-
-    const selecionada = casas.find(c => c.id === casaSelecionada);
-    const referencia = selecionada || casas[0];
-
-    if (!referencia) {
-        elemento.textContent = "Crie uma casa para começar a disputa.";
-        return;
-    }
-
-    const presidente = obterPresidente(referencia.cidade, referencia.estado);
-
-    if (!presidente) {
-        elemento.textContent = "Ainda não há casas nesta cidade.";
-        return;
-    }
-
-    elemento.replaceChildren();
-
-    const coroa = document.createElement("div");
-    coroa.className = "crown";
-    coroa.textContent = "👑";
-
-    const titulo = document.createElement("strong");
-    titulo.textContent = presidente.usuario;
-
-    const local = document.createElement("div");
-    local.textContent = presidente.cidade + " - " + presidente.estado;
-
-    const casa = document.createElement("div");
-    casa.textContent = "Casa: " + presidente.nome;
-
-    const votosEl = document.createElement("div");
-    votosEl.textContent = numero(presidente.votos) + " voto(s)";
-
-    const explicacao = document.createElement("div");
-    explicacao.style.color = "var(--suave)";
-    explicacao.style.marginTop = "6px";
-    explicacao.textContent =
-        "Liderança calculada pela casa mais votada nesta cidade.";
-
-    elemento.append(coroa, titulo, local, casa, votosEl, explicacao);
-}
-
-function atualizarDetalhes() {
-    const elemento = $("detalhesCasa");
-    const casa = casas.find(c => c.id === casaSelecionada);
-
-    if (!casa) {
-        elemento.textContent = "Selecione uma casa no mapa ou no ranking.";
-        return;
-    }
-
-    elemento.replaceChildren();
-
-    const linhas = [
-        ["Casa", casa.nome],
-        ["Usuário", "@" + casa.usuario],
-        ["Cidade", casa.cidade + " - " + casa.estado],
-        ["Votos", numero(casa.votos)],
-        ["Nível", numero(casa.nivel)],
-        ["Criada em", new Date(casa.dataCriacao).toLocaleDateString("pt-BR")]
-    ];
-
-    const presidente = obterPresidente(casa.cidade, casa.estado);
-    if (presidente && presidente.id === casa.id) {
-        linhas.push(["Cargo", "Presidente da cidade 👑"]);
-    }
-
-    linhas.forEach(([chave, valor]) => {
-        const linha = document.createElement("div");
-        const forte = document.createElement("strong");
-        forte.textContent = chave + ": ";
-        linha.append(forte, document.createTextNode(valor));
-        elemento.appendChild(linha);
-    });
-}
-
-function atualizarBotoes() {
-    const casa = casas.find(c => c.id === casaSelecionada);
-    $("votarBtn").disabled = !casa ||
-        !config("configuracoes.votacao.ativa", true) ||
-        jaVotou(casa?.id);
-
-    $("votarBtn").textContent = casa && jaVotou(casa.id)
-        ? "Voto registrado ✓"
-        : "👍 Votar";
-
-    $("verCasaBtn").disabled = !casa;
-}
-
-function jaVotou(id) {
-    return !!(id && votos[id]);
+  if (objeto?.userData.houseId) {
+    selecionarCasa(objeto.userData.houseId);
+  }
 }
 
 function selecionarCasa(id) {
-    if (!casas.some(c => c.id === id)) return;
-    casaSelecionada = id;
-    atualizarInterface();
-}
+  selectedId = id;
+  atualizarInterface();
 
-function criarNovaCasa(evento) {
-    evento.preventDefault();
-    ocultarMensagem();
-
-    if (!config("configuracoes.casas.permitirCriacao", true)) {
-        mostrarMensagem("A criação de casas está desativada no info.json.", true);
-        return;
+  if (id) {
+    const casa = casas.find(item => item.id === id);
+    if (casa) {
+      $("nomeCasa").value = casa.nome;
+      $("usuarioCasa").value = casa.usuario;
+      $("cidadeCasa").value = casa.cidade || "";
+      $("estadoCasa").value = casa.estado;
     }
-
-    const nome = $("nomeCasa").value.trim();
-    const usuario = $("usuario").value.trim().replace(/^@/, "");
-    const cidade = $("cidade").value.trim();
-    const estado = $("estado").value;
-
-    if (!nome || !usuario || !cidade || !estado) {
-        mostrarMensagem("Preencha todos os campos para criar sua casa.", true);
-        return;
-    }
-
-    const limite = Number(config("configuracoes.casas.limitePorUsuario", 1));
-
-    if (limite > 0) {
-        const doUsuario = casas.filter(c =>
-            normalizar(c.usuario) === normalizar(usuario)
-        );
-
-        if (doUsuario.length >= limite) {
-            mostrarMensagem(
-                "Este usuário já atingiu o limite de casas configurado no info.json.",
-                true
-            );
-            return;
-        }
-    }
-
-    const casa = {
-        id: gerarId(),
-        nome,
-        usuario,
-        cidade,
-        estado,
-        dataCriacao: new Date().toISOString(),
-        votos: 0,
-        nivel: Number(config("configuracoes.casas.nivelInicial", 1))
-    };
-
-    casas.push(casa);
-    casaSelecionada = casa.id;
-
-    salvarDados();
-    atualizarInterface();
-
-    $("formCasa").reset();
-
-    mostrarMensagem(
-        "Casa criada! Ela já aparece na lista e será posicionada aproximadamente no mapa."
-    );
-}
-
-function votarNaCasa() {
-    const casa = casas.find(c => c.id === casaSelecionada);
-    if (!casa) return;
-
-    if (!config("configuracoes.votacao.ativa", true)) {
-        mostrarMensagem("A votação está desativada no info.json.", true);
-        return;
-    }
-
-    if (jaVotou(casa.id)) {
-        mostrarMensagem("Você já votou nesta casa.", true);
-        return;
-    }
-
-    votos[casa.id] = true;
-    casa.votos += 1;
-
-    if (config("configuracoes.casas.evoluirPorVotos", true)) {
-        const votosPorNivel = Math.max(
-            1,
-            Number(config("configuracoes.casas.votosPorNivel", 5))
-        );
-
-        casa.nivel = Number(config("configuracoes.casas.nivelInicial", 1)) +
-            Math.floor(casa.votos / votosPorNivel);
-    }
-
-    salvarDados();
-    atualizarInterface();
-
-    mostrarMensagem(
-        "Voto registrado! A classificação e a liderança da cidade foram atualizadas."
-    );
-}
-
-function aoIniciarArraste(evento) {
-    arrastando = true;
-    movimentoMouse = false;
-    inicioX = evento.clientX;
-    inicioY = evento.clientY;
-}
-
-function aoMoverPonteiro(evento) {
-    if (!arrastando) return;
-
-    const dx = evento.clientX - inicioX;
-    const dy = evento.clientY - inicioY;
-
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) movimentoMouse = true;
-
-    rotacaoY += dx * 0.006;
-    zoom = THREE.MathUtils.clamp(zoom - dy * 0.003, 0.65, 1.8);
-
-    inicioX = evento.clientX;
-    inicioY = evento.clientY;
-}
-
-function aoSoltarPonteiro(evento) {
-    if (!arrastando) return;
-    arrastando = false;
-
-    if (!movimentoMouse) selecionarCasaNoPonteiro(evento);
-}
-
-function selecionarCasaNoPonteiro(evento) {
-    if (!renderer || !camera) return;
-
-    const rect = renderer.domElement.getBoundingClientRect();
-
-    mouse.x = ((evento.clientX - rect.left) / rect.width) * 2 - 1;
-    mouse.y = -((evento.clientY - rect.top) / rect.height) * 2 + 1;
-
-    raycaster.setFromCamera(mouse, camera);
-
-    const alvos = raycaster.intersectObjects(objetosCasas, true);
-    if (!alvos.length) return;
-
-    let objeto = alvos[0].object;
-    while (objeto && !objeto.userData.casaId) objeto = objeto.parent;
-
-    if (objeto?.userData.casaId) {
-        selecionarCasa(objeto.userData.casaId);
-    }
-}
-
-function aoRolar(evento) {
-    evento.preventDefault();
-    zoom = THREE.MathUtils.clamp(
-        zoom - evento.deltaY * 0.001,
-        0.65,
-        1.8
-    );
-}
-
-function redimensionar() {
-    if (!renderer || !camera) return;
-
-    const container = $("mapa");
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
+  }
 }
 
 function animar() {
-    requestAnimationFrame(animar);
+  requestAnimationFrame(animar);
 
-    if (!renderer || !camera) return;
+  if (mapGroup) {
+    mapGroup.rotation.y = rotationY;
+    mapGroup.rotation.x = rotationX;
+  }
 
-    if (grupoMapa) grupoMapa.rotation.y = rotacaoY;
+  if (houseGroup) {
+    houseGroup.rotation.y = rotationY;
+    houseGroup.rotation.x = rotationX;
+  }
 
-    const distancia = 26 / zoom;
-    camera.position.set(0, distancia * 0.72, distancia);
+  if (camera) {
+    camera.position.set(0, 45 / zoom, 44 / zoom);
     camera.lookAt(0, 0, 0);
+  }
 
-    // As etiquetas das casas continuam voltadas para a câmera.
-    if (casasGrupo) {
-        casasGrupo.children.forEach(grupo => {
-            grupo.children.forEach(objeto => {
-                if (objeto.isSprite) {
-                    objeto.quaternion.copy(camera.quaternion);
-                }
-            });
-        });
-    }
-
+  if (renderer && scene && camera) {
     renderer.render(scene, camera);
+  }
 }
 
-$("formCasa").addEventListener("submit", criarNovaCasa);
-$("votarBtn").addEventListener("click", votarNaCasa);
+function criarCasa(evento) {
+  evento.preventDefault();
 
-$("verCasaBtn").addEventListener("click", () => {
-    const casa = casas.find(c => c.id === casaSelecionada);
-    if (!casa) return;
+  if (!CONFIG.configuracoes?.casas?.permitirCriacao) {
+    mensagem("A criação de casas está desativada.", "error");
+    return;
+  }
 
-    const p = coordenadaCasa(casa);
-    rotacaoY = 0;
-    zoom = 1.35;
+  const nome = $("nomeCasa").value.trim();
+  const usuario = normalizarUsuario($("usuarioCasa").value);
+  const cidade = $("cidadeCasa").value.trim();
+  const estado = $("estadoCasa").value;
 
-    mostrarMensagem("Casa selecionada: " + casa.nome + " · " + casa.cidade + "/" + casa.estado);
-});
+  if (!nome || !usuario || !cidade || !estado) {
+    mensagem("Preencha todos os campos.", "error");
+    return;
+  }
 
-carregarConfiguracoes();
+  const existente = casas.find(casa =>
+    normalizarUsuario(casa.usuario) === usuario
+  );
+
+  if (existente) {
+    mensagem(
+      `O usuário @${usuario} já possui a casa "${existente.nome}".`,
+      "error"
+    );
+    selecionarCasa(existente.id);
+    return;
+  }
+
+  const casa = {
+    id: "casa_" + Date.now().toString(36) +
+      "_" + Math.random().toString(36).slice(2, 7),
+    nome,
+    usuario,
+    cidade,
+    estado,
+    votos: 0,
+    nivel: Number(CONFIG.configuracoes?.casas?.nivelInicial) || 1,
+    criadaEm: new Date().toISOString()
+  };
+
+  casas.push(casa);
+  salvarDados();
+  atualizarCasas3D();
+  selecionarCasa(casa.id);
+  atualizarInterface();
+
+  mensagem(`🏠 ${nome} foi construída no mapa!`, "success");
+}
+
+function votar(id) {
+  if (!CONFIG.configuracoes?.votacao?.ativa) {
+    alert("A votação está desativada.");
+    return;
+  }
+
+  const casa = casas.find(item => item.id === id);
+  if (!casa) return;
+
+  if (!Array.isArray(votos[id])) votos[id] = [];
+
+  // Neste protótipo, o identificador é o navegador atual.
+  const votante = "navegador-atual";
+
+  if (votos[id].includes(votante)) {
+    alert("Você já votou nesta casa neste navegador.");
+    return;
+  }
+
+  votos[id].push(votante);
+  casa.votos = Math.max(0, Number(casa.votos) || 0) + 1;
+
+  salvarDados();
+  atualizarCasas3D();
+  atualizarInterface();
+}
+
+function atualizarInterface() {
+  const totalVotos = casas.reduce(
+    (total, casa) => total + contarVotos(casa), 0
+  );
+
+  const cidades = new Set(casas.map(cidadeChave));
+
+  $("totalCasas").textContent = casas.length.toLocaleString("pt-BR");
+  $("totalVotos").textContent = totalVotos.toLocaleString("pt-BR");
+  $("totalCidades").textContent = cidades.size.toLocaleString("pt-BR");
+
+  const ordenadas = [...casas].sort((a, b) =>
+    contarVotos(b) - contarVotos(a) ||
+    nivelDaCasa(b) - nivelDaCasa(a) ||
+    a.nome.localeCompare(b.nome, "pt-BR")
+  );
+
+  const ranking = $("ranking");
+
+  if (!ordenadas.length) {
+    ranking.innerHTML =
+      '<div class="empty">Ainda não existem casas.<br>Construa a primeira!</div>';
+    return;
+  }
+
+  ranking.innerHTML = ordenadas.map((casa, indice) => {
+    const votosCasa = contarVotos(casa);
+    const nivel = nivelDaCasa(casa);
+    const presidente = ehPresidente(casa);
+    const jaVotou = Array.isArray(votos[casa.id]) &&
+      votos[casa.id].includes("navegador-atual");
+
+    return `
+      <article class="house ${selectedId === casa.id ? "selected" : ""}"
+        data-house="${escaparHTML(casa.id)}">
+        <div class="house-icon">${indice === 0 ? "🏠" : "🏡"}</div>
+        <div>
+          <div class="house-name">${escaparHTML(casa.nome)}</div>
+          <div class="house-meta">
+            @${escaparHTML(casa.usuario)}<br>
+            📍 ${escaparHTML(casa.cidade)} — ${escaparHTML(casa.estado)}<br>
+            <span class="level">⭐ Nível ${nivel}</span>
+            · 🗳️ ${votosCasa} voto(s)
+            ${presidente
+              ? '<br><span class="president">👑 Presidente da cidade</span>'
+              : ""}
+          </div>
+          <div class="house-actions">
+            <button class="small-button" data-select="${escaparHTML(casa.id)}"
+              type="button">Ver casa</button>
+            <button class="button vote" data-vote="${escaparHTML(casa.id)}"
+              type="button" ${jaVotou ? "disabled" : ""}>
+              ${jaVotou ? "✓ Votado" : "👍 Votar"}
+            </button>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  ranking.querySelectorAll("[data-select]").forEach(botao => {
+    botao.addEventListener("click", () => {
+      selecionarCasa(botao.dataset.select);
+    });
+  });
+
+  ranking.querySelectorAll("[data-vote]").forEach(botao => {
+    botao.addEventListener("click", () => votar(botao.dataset.vote));
+  });
+
+  ranking.querySelectorAll("[data-house]").forEach(card => {
+    card.addEventListener("click", evento => {
+      if (evento.target.closest("button")) return;
+      selecionarCasa(card.dataset.house);
+    });
+  });
+}
+
+async function iniciarAplicacao() {
+  try {
+    const resposta = await fetch(CONFIG_URL, { cache: "no-store" });
+    if (!resposta.ok) {
+      throw new Error("Não foi possível carregar o info.json.");
+    }
+
+    CONFIG = await resposta.json();
+
+    if (!CONFIG || !CONFIG.configuracoes) {
+      throw new Error("O info.json não contém a configuração esperada.");
+    }
+
+    carregarDadosLocais();
+    configurarMapa();
+    atualizarCasas3D();
+    atualizarInterface();
+
+    $("formCasa").addEventListener("submit", criarCasa);
+
+    $("status").textContent = "● Jogo carregado";
+    $("status").style.color = "var(--green)";
+
+    try {
+      const respostaMapa = await fetch(GEO_URL);
+      if (!respostaMapa.ok) throw new Error("Mapa indisponível.");
+
+      geojson = await respostaMapa.json();
+      desenharGeoJSON(geojson);
+    } catch (erroMapa) {
+      console.warn("Os contornos estaduais não foram carregados.", erroMapa);
+      $("status").textContent = "● Mapa simplificado";
+    }
+  } catch (erro) {
+    console.error(erro);
+    $("status").textContent = "● Erro de configuração";
+    $("status").style.color = "var(--red)";
+
+    document.querySelector(".map-wrap").innerHTML =
+      '<div class="empty">Não foi possível iniciar o jogo.<br>' +
+      'Verifique se o arquivo <strong>info.json</strong> existe e contém JSON válido.' +
+      '</div>';
+  }
+}
+
+iniciarAplicacao();
 </script>
-
 </body>
 </html>
