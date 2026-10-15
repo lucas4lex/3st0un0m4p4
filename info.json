@@ -1,43 +1,86 @@
 {
   "projeto": "3st0un0m4p4",
-  "nome": "3st0un0m4p4 — Estou no Mapa",
+  "nome": "Estou no Mapa",
   "versao": "1.0.0",
-  "descricao": "Jogo social de casas em um mapa 3D do Brasil. Pessoas entram com sua cidade e suas casas evoluem conforme recebem votos.",
-  "frase": "Comenta sua cidade e entra no mapa 🏠",
-  "regras": [
-    "Cada pessoa cadastrada recebe uma casa no mapa.",
-    "Cada voto aumenta a pontuação da casa.",
-    "O nível da casa cresce conforme a pontuação.",
-    "Quem tiver a casa mais votada pode liderar sua cidade."
-  ],
-  "mapa": {
-    "geojson": "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson",
-    "centro": {"latitude": -14.235, "longitude": -51.925},
-    "projecao": "Equiretangular simplificada para visualização 3D"
+  "idioma": "pt-BR",
+  "configuracoes": {
+    "mapa": {
+      "tipo": "3D",
+      "pais": "Brasil",
+      "mostrarEstados": true,
+      "mostrarCidades": true
+    },
+    "casas": {
+      "permitirCriacao": true,
+      "limitePorUsuario": 1,
+      "criacaoAutomatica": false,
+      "campos": [
+        "id",
+        "nome",
+        "usuario",
+        "cidade",
+        "estado",
+        "dataCriacao",
+        "votos",
+        "nivel"
+      ],
+      "nivelInicial": 1,
+      "evoluirPorVotos": true,
+      "mostrarNoMapa": true
+    },
+    "cidades": {
+      "permitirMultiplasCasas": true,
+      "elegerPresidente": true,
+      "criterioPresidente": "casa_com_mais_votos",
+      "empate": "presidente_atual",
+      "mostrarPresidenteNoMapa": true
+    },
+    "presidentes": {
+      "permitirEleicao": true,
+      "metodo": "votacao",
+      "mandato": "indeterminado",
+      "campos": [
+        "id",
+        "usuario",
+        "nome",
+        "cidade",
+        "estado",
+        "dataEleicao",
+        "votos",
+        "casaId"
+      ],
+      "reeleicao": true,
+      "perderCargoAoPerderLideranca": true
+    },
+    "votacao": {
+      "ativa": true,
+      "permitirVotoPorUsuario": true,
+      "votosPublicos": true,
+      "atualizarClassificacaoAutomaticamente": true
+    }
   },
-  "uf": [
-    {"sigla":"AC","nome":"Acre","lat":-9.97,"lon":-67.81},{"sigla":"AL","nome":"Alagoas","lat":-9.65,"lon":-35.71},
-    {"sigla":"AP","nome":"Amapá","lat":0.03,"lon":-51.07},{"sigla":"AM","nome":"Amazonas","lat":-3.1,"lon":-60.02},
-    {"sigla":"BA","nome":"Bahia","lat":-12.97,"lon":-38.5},{"sigla":"CE","nome":"Ceará","lat":-3.73,"lon":-38.52},
-    {"sigla":"DF","nome":"Distrito Federal","lat":-15.79,"lon":-47.88},{"sigla":"ES","nome":"Espírito Santo","lat":-20.32,"lon":-40.34},
-    {"sigla":"GO","nome":"Goiás","lat":-16.68,"lon":-49.25},{"sigla":"MA","nome":"Maranhão","lat":-2.53,"lon":-44.3},
-    {"sigla":"MT","nome":"Mato Grosso","lat":-15.6,"lon":-56.1},{"sigla":"MS","nome":"Mato Grosso do Sul","lat":-20.44,"lon":-54.65},
-    {"sigla":"MG","nome":"Minas Gerais","lat":-19.92,"lon":-43.94},{"sigla":"PA","nome":"Pará","lat":-1.45,"lon":-48.5},
-    {"sigla":"PB","nome":"Paraíba","lat":-7.12,"lon":-34.86},{"sigla":"PR","nome":"Paraná","lat":-25.43,"lon":-49.27},
-    {"sigla":"PE","nome":"Pernambuco","lat":-8.05,"lon":-34.9},{"sigla":"PI","nome":"Piauí","lat":-5.09,"lon":-42.8},
-    {"sigla":"RJ","nome":"Rio de Janeiro","lat":-22.91,"lon":-43.2},{"sigla":"RN","nome":"Rio Grande do Norte","lat":-5.79,"lon":-35.21},
-    {"sigla":"RS","nome":"Rio Grande do Sul","lat":-30.03,"lon":-51.23},{"sigla":"RO","nome":"Rondônia","lat":-8.76,"lon":-63.9},
-    {"sigla":"RR","nome":"Roraima","lat":2.82,"lon":-60.67},{"sigla":"SC","nome":"Santa Catarina","lat":-27.59,"lon":-48.55},
-    {"sigla":"SP","nome":"São Paulo","lat":-23.55,"lon":-46.63},{"sigla":"SE","nome":"Sergipe","lat":-10.91,"lon":-37.07},
-    {"sigla":"TO","nome":"Tocantins","lat":-10.18,"lon":-48.33}
-  ],
-  "participantes": [
-    {"id":"casa-001","nome":"LuCarrilho","cidade":"Curitiba","estado":"Paraná","uf":"PR","latitude":-25.4284,"longitude":-49.2733,"descricao":"É Curitiba no Mapa!","votos":12,"categoria":"participante","visivel":True},
-    {"id":"casa-002","nome":"Manu","cidade":"Curitiba","estado":"Paraná","uf":"PR","latitude":-25.45,"longitude":-49.29,"descricao":"Minha casa, minhas regras.","votos":8,"categoria":"participante","visivel":True},
-    {"id":"casa-003","nome":"Pedro","cidade":"São Paulo","estado":"São Paulo","uf":"SP","latitude":-23.5505,"longitude":-46.6333,"descricao":"São Paulo tá no mapa.","votos":16,"categoria":"participante","visivel":True},
-    {"id":"casa-004","nome":"Bia","cidade":"Rio de Janeiro","estado":"Rio de Janeiro","uf":"RJ","latitude":-22.9068,"longitude":-43.1729,"descricao":"Vista para o topo!","votos":5,"categoria":"participante","visivel":True},
-    {"id":"casa-005","nome":"Nando","cidade":"Salvador","estado":"Bahia","uf":"BA","latitude":-12.9777,"longitude":-38.5016,"descricao":"Da Bahia pro Brasil.","votos":10,"categoria":"participante","visivel":True},
-    {"id":"casa-006","nome":"Lari","cidade":"Recife","estado":"Pernambuco","uf":"PE","latitude":-8.0476,"longitude":-34.877,"descricao":"Minha casa vai crescer!","votos":3,"categoria":"participante","visivel":True},
-    {"id":"casa-007","nome":"Gui","cidade":"Brasília","estado":"Distrito Federal","uf":"DF","latitude":-15.7939,"longitude":-47.8828,"descricao":"No centro do mapa.","votos":7,"categoria":"participante","visivel":True}
-  ]
+  "estruturas": {
+    "casa": {
+      "id": "casa_001",
+      "nome": "Minha Casa",
+      "usuario": "usuario_exemplo",
+      "cidade": "Curitiba",
+      "estado": "PR",
+      "dataCriacao": null,
+      "votos": 0,
+      "nivel": 1,
+      "presidente": false
+    },
+    "presidente": {
+      "id": "presidente_001",
+      "usuario": "usuario_exemplo",
+      "nome": "Presidente da Cidade",
+      "cidade": "Curitiba",
+      "estado": "PR",
+      "dataEleicao": null,
+      "votos": 0,
+      "casaId": "casa_001",
+      "ativo": true
+    }
+  }
 }
