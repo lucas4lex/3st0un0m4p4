@@ -1,116 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10152b">
   <title>3st0un0m4p4 — Estou no Mapa</title>
-  <meta name="description" content="Um mapa 3D do Brasil para encontrar pessoas, cidades e histórias.">
-  <meta name="theme-color" content="#071426">
-
+  <meta name="description" content="Comente sua cidade, entre no mapa e faça sua casa crescer com votos.">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%87%A7%F0%9F%87%B7%3C/text%3E%3C/svg%3E">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="3st0un0m4p4 — início">
-      <span class="brand-icon">3D</span>
-      <span>
-        <strong>3st0un0m4p4</strong>
-        <small>ESTOU NO MAPA</small>
-      </span>
+    <a class="brand" href="./" aria-label="3st0un0m4p4 início">
+      <span class="brand-mark">⌂</span>
+      <span><strong>3st0un0m4p4</strong><small>ESTOU NO MAPA</small></span>
     </a>
-
-    <div class="topbar-status">
-      <span class="status-dot"></span>
-      MAPA DO BRASIL
-    </div>
+    <nav>
+      <a href="#mapa-section">Mapa</a>
+      <a href="#ranking-section">Ranking</a>
+      <a href="#entrar-section" class="nav-cta">Entrar no mapa <span>↗</span></a>
+    </nav>
   </header>
 
-  <main class="layout">
-    <section class="intro">
-      <span class="eyebrow">UM PAÍS, MILHÕES DE HISTÓRIAS</span>
-      <h1>O Brasil é gigante.<br><span>Encontre seu lugar.</span></h1>
-      <p>Explore o mapa, encontre pessoas e descubra quem está no mapa.</p>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span> O BRASIL É O SEU TERRENO</p>
+        <h1>Você está no mapa.<br><span>Sua casa pode crescer.</span></h1>
+        <p class="hero-desc">Comente sua cidade, ganhe seu espaço e suba de nível com os votos da comunidade. Quem tem a maior casa manda na cidade. 👑</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#entrar-section">Quero minha casa <span>→</span></a>
+          <a class="button button-quiet" href="#mapa-section">Explorar o mapa</a>
+        </div>
+        <div class="stats-row">
+          <div><strong id="totalPessoas">—</strong><span>pessoas no mapa</span></div>
+          <div><strong id="totalCidades">—</strong><span>cidades</span></div>
+          <div><strong id="totalVotos">—</strong><span>votos registrados neste navegador</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Ilustração de casas em um mapa 3D">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="hero-grid"></div>
+        <div class="floating-label label-top"><span>🏠</span> SUA CASA, SUAS REGRAS</div>
+        <div class="floating-label label-bottom"><span>📈</span> NÍVEL <b id="heroLevel">01</b></div>
+        <div class="hero-house house-back"><i></i><b></b><span></span></div>
+        <div class="hero-house house-front"><i></i><b></b><span></span><em></em></div>
+        <div class="hero-pin">⌂</div>
+      </div>
+    </section>
 
-      <form id="formBusca" class="search-form">
-        <span class="search-icon" aria-hidden="true">⌕</span>
-        <input
-          id="campoBusca"
-          type="search"
-          placeholder="Busque por nome, cidade ou estado..."
-          autocomplete="off"
-          aria-label="Buscar pessoas"
-        >
-        <button type="submit">Buscar</button>
+    <section class="how-section">
+      <div class="section-heading"><p class="eyebrow">É SIMPLES ASSIM</p><h2>Uma cidade. Muitas casas.<br><span>Uma disputa gigante.</span></h2></div>
+      <div class="how-grid">
+        <article class="how-card"><span class="step-number">01</span><div class="how-icon">📍</div><h3>Marque sua cidade</h3><p>Entre no mapa com seu nome e a cidade onde sua casa vai ficar.</p></article>
+        <article class="how-card"><span class="step-number">02</span><div class="how-icon">🏠</div><h3>Ganhe sua casa</h3><p>Sua casa aparece no mapa e começa no nível 1.</p></article>
+        <article class="how-card"><span class="step-number">03</span><div class="how-icon">👑</div><h3>Suba de nível</h3><p>Receba votos, aumente sua casa e dispute o topo da cidade.</p></article>
+      </div>
+    </section>
+
+    <section id="mapa-section" class="map-section">
+      <div class="section-heading section-heading-row">
+        <div><p class="eyebrow">EXPLORADOR 3D</p><h2>O Brasil <span>em construção.</span></h2><p class="section-desc">Arraste para girar, use a rodinha para aproximar e clique em uma casa para ver os detalhes.</p></div>
+        <div class="map-badge"><span class="live-dot"></span> MAPA INTERATIVO</div>
+      </div>
+      <div class="map-layout">
+        <div class="map-frame">
+          <div class="map-toolbar"><span><i class="toolbar-dot"></i><i class="toolbar-dot"></i><i class="toolbar-dot"></i> MAPA DO BRASIL / 3D</span><button id="resetCamera" type="button">↻ Reiniciar visão</button></div>
+          <div id="mapa" role="img" aria-label="Mapa 3D interativo do Brasil"><div class="map-loading" id="mapaCarregando"><div class="loader"></div><strong>Preparando o mapa...</strong><span>Carregando estados e casas</span></div></div>
+          <div class="map-legend"><span><i class="legend-dot dot-house"></i> Casas</span><span><i class="legend-dot dot-selected"></i> Casa selecionada</span><span>🖱️ Arraste para explorar</span></div>
+        </div>
+        <aside class="side-panel">
+          <div class="panel-head"><div><p class="eyebrow">DETALHES</p><h3 id="painelTitulo">Explore o mapa</h3></div><span class="panel-symbol">⌂</span></div>
+          <div id="detalhesCasa" class="house-details empty-details"><div class="empty-icon">⌖</div><p>Selecione uma casa no mapa ou escolha alguém no ranking para ver seu nível e votar.</p></div>
+          <div class="panel-divider"></div>
+          <form id="formBusca" class="search-form">
+            <label for="campoBusca">Encontrar uma pessoa</label>
+            <div class="search-input-wrap"><span>⌕</span><input id="campoBusca" type="search" placeholder="Nome, cidade ou estado..." autocomplete="off"><button aria-label="Buscar" type="submit">→</button></div>
+          </form>
+          <div id="mensagem" class="message" role="status"></div>
+          <div class="mini-list" id="listaPessoas"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="ranking-section" class="ranking-section">
+      <div class="section-heading section-heading-row"><div><p class="eyebrow">QUEM ESTÁ DOMINANDO?</p><h2>Ranking <span>das casas.</span></h2><p class="section-desc">A casa com mais votos lidera. Os votos desta demonstração ficam salvos neste navegador.</p></div><div class="ranking-total"><strong id="contadorResultados">0</strong><span>casas listadas</span></div></div>
+      <div class="ranking-controls"><label for="filtroEstado">Filtrar por estado</label><select id="filtroEstado"><option value="">Brasil inteiro</option></select><label for="filtroOrdenacao">Ordenar</label><select id="filtroOrdenacao"><option value="votos">Mais votadas</option><option value="nivel">Maior nível</option><option value="nome">Nome A–Z</option></select></div>
+      <div id="ranking" class="ranking-grid"></div>
+      <p id="rankingVazio" class="empty-state" hidden>Ninguém apareceu por aqui com esse filtro ainda.</p>
+    </section>
+
+    <section id="entrar-section" class="join-section">
+      <div class="join-copy"><p class="eyebrow">SEU LUGAR É AQUI</p><h2>Comente sua cidade.<br><span>Construa seu território.</span></h2><p>Cadastre uma casa na demonstração. O cadastro é salvo localmente neste navegador; para compartilhar cadastros e votos entre todos os visitantes, conecte um backend.</p><div class="join-note">✦ Uma casa por pessoa nesta demonstração. Use um nome e uma cidade reais ou um apelido.</div></div>
+      <form id="formEntrar" class="join-form">
+        <div class="form-title"><span class="form-title-icon">⌂</span><div><h3>Colocar minha casa no mapa</h3><p>Leva menos de um minuto</p></div></div>
+        <label for="nome">Como você se chama?</label><input id="nome" name="nome" required maxlength="40" placeholder="Seu nome ou apelido">
+        <div class="form-row"><div><label for="cidade">Sua cidade</label><input id="cidade" name="cidade" required maxlength="60" placeholder="Ex.: Curitiba"></div><div><label for="uf">Estado</label><select id="uf" name="uf" required><option value="">UF</option></select></div></div>
+        <label for="descricao">Uma frase sobre você <span class="optional">(opcional)</span></label><textarea id="descricao" name="descricao" maxlength="120" rows="2" placeholder="O que sua cidade precisa saber?"></textarea>
+        <button class="button button-primary full-button" type="submit">Criar minha casa <span>→</span></button>
+        <p class="form-footnote">Ao criar a casa, você concorda em exibir o nome e a cidade informados nesta demonstração.</p>
       </form>
-
-      <div class="stats">
-        <div class="stat">
-          <strong id="totalPessoas">—</strong>
-          <span>PESSOAS NO MAPA</span>
-        </div>
-        <div class="stat">
-          <strong id="totalEstados">—</strong>
-          <span>ESTADOS REPRESENTADOS</span>
-        </div>
-        <div class="stat">
-          <strong>🇧🇷</strong>
-          <span>BRASIL</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="map-section" aria-label="Mapa 3D interativo do Brasil">
-      <div class="map-heading">
-        <div>
-          <span class="eyebrow">EXPLORAÇÃO INTERATIVA</span>
-          <h2>Brasil em 3D</h2>
-        </div>
-        <span class="live-tag"><span class="status-dot"></span> INTERATIVO</span>
-      </div>
-
-      <div id="mapa" class="map-canvas">
-        <div id="mapaCarregando" class="map-loading">
-          <div class="loader"></div>
-          <strong>Preparando o mapa...</strong>
-          <span>Carregando os dados do Brasil</span>
-        </div>
-        <div id="tooltipMapa" class="map-tooltip" hidden></div>
-      </div>
-
-      <div class="map-controls">
-        <span>🖱️ Arraste para girar · Role para aproximar</span>
-        <button id="resetarMapa" type="button">⟳ Centralizar</button>
-      </div>
-      <p class="map-note">
-        O mapa utiliza dados geográficos externos. É necessária uma conexão com a internet.
-      </p>
-    </section>
-
-    <section class="people-section">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">GENTE DE TODO O BRASIL</span>
-          <h2 id="tituloResultados">Pessoas no mapa</h2>
-        </div>
-        <span id="contadorResultados" class="result-count">Carregando...</span>
-      </div>
-
-      <div id="mensagem" class="message" role="status">
-        Carregando as pessoas cadastradas...
-      </div>
-
-      <div id="listaPessoas" class="people-grid"></div>
     </section>
   </main>
 
-  <footer class="footer">
-    <a class="footer-brand" href="index.html">3st0un0m4p4</a>
-    <span>ESTOU NO MAPA 🇧🇷</span>
-    <span>Feito para conectar pessoas.</span>
-  </footer>
-
+  <footer><a class="brand footer-brand" href="./"><span class="brand-mark">⌂</span><span><strong>3st0un0m4p4</strong><small>ESTOU NO MAPA</small></span></a><p>Feito para quem quer deixar sua marca no mapa. 🇧🇷</p><a href="info.json" target="_blank" rel="noreferrer">Informações do projeto ↗</a></footer>
+  <div id="tooltipMapa" class="map-tooltip" hidden></div>
   <script type="module" src="script.js"></script>
 </body>
 </html>
