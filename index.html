@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <title>3st0un0m4p4 — Estou no Mapa</title>
+  <meta name="description" content="Explore o Brasil em um mapa 3D interativo.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./"><span class="logo">3D</span><span><b>3st0un0m4p4</b><small>ESTOU NO MAPA</small></span></a>
+  <span class="status"><i></i> MAPA INTERATIVO</span>
+</header>
+<main>
+  <section class="intro">
+    <div class="eyebrow">UM PAÍS, MILHARES DE HISTÓRIAS</div>
+    <h1>O Brasil inteiro.<br><em>Na palma da mão.</em></h1>
+    <p>Gire o globo, descubra os estados e encontre seu lugar no Brasil.</p>
+    <div class="stats"><div><b id="state-count">27</b><span>UFs</span></div><div><b>5</b><span>Regiões</span></div><div><b>∞</b><span>Descobertas</span></div></div>
+  </section>
+  <section class="map-panel">
+    <div class="panel-head"><div><small>VISUALIZAÇÃO</small><b>Brasil em 3D</b></div><div><button id="reset-view" title="Reiniciar visualização">↺</button><button id="spin-toggle" title="Alternar rotação automática">⟳</button></div></div>
+    <div id="map-stage">
+      <canvas id="map3d" aria-label="Globo 3D interativo"></canvas>
+      <div class="map-hint">↔ Arraste para girar <span>•</span> Scroll para aproximar</div>
+      <div class="map-coordinates">BRASIL · 14°S 52°W</div>
+      <div id="map-loading">Preparando o mapa 3D…</div>
+    </div>
+    <div class="legend"><span><i class="brazil"></i> Brasil em destaque</span><span><i class="land"></i> Globo terrestre</span><span><i class="capital"></i> Capital</span></div>
+  </section>
+  <aside class="side-panel">
+    <section class="card">
+      <div class="label">ENCONTRE SEU LUGAR</div>
+      <label class="search"><span>⌕</span><input id="search-input" type="search" placeholder="Estado, UF ou capital…" autocomplete="off"><kbd>/</kbd></label>
+      <div id="search-results"></div>
+    </section>
+    <section class="card detail">
+      <div class="detail-top"><span id="detail-flag">🇧🇷</span><span id="detail-region" class="pill">PAÍS</span></div>
+      <div class="label">SEU PONTO NO MAPA</div>
+      <h2 id="detail-name">Brasil</h2>
+      <p id="detail-description">Um país de dimensões continentais, diversidade cultural e paisagens extraordinárias.</p>
+      <div class="detail-grid"><div><small>CAPITAL</small><b id="detail-capital">Brasília</b></div><div><small>REGIÃO</small><b id="detail-region-name">Todas</b></div></div>
+      <button id="focus-map" class="primary">Localizar no globo <span>↗</span></button>
+    </section>
+    <p class="footnote">Feito para explorar. Feito para encontrar seu lugar. <b>#EstouNoMapa</b></p>
+  </aside>
+</main>
+<footer>3st0un0m4p4 <span>© 2026</span> · ESTOU NO MAPA</footer>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
