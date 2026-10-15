@@ -1,3 +1,4 @@
+
 {
   "projeto": "3st0un0m4p4",
   "nome": "Estou no Mapa",
@@ -13,19 +14,9 @@
     "casas": {
       "permitirCriacao": true,
       "limitePorUsuario": 1,
-      "criacaoAutomatica": false,
-      "campos": [
-        "id",
-        "nome",
-        "usuario",
-        "cidade",
-        "estado",
-        "dataCriacao",
-        "votos",
-        "nivel"
-      ],
       "nivelInicial": 1,
       "evoluirPorVotos": true,
+      "votosPorNivel": 5,
       "mostrarNoMapa": true
     },
     "cidades": {
@@ -39,48 +30,13 @@
       "permitirEleicao": true,
       "metodo": "votacao",
       "mandato": "indeterminado",
-      "campos": [
-        "id",
-        "usuario",
-        "nome",
-        "cidade",
-        "estado",
-        "dataEleicao",
-        "votos",
-        "casaId"
-      ],
-      "reeleicao": true,
-      "perderCargoAoPerderLideranca": true
+      "reeleicao": true
     },
     "votacao": {
       "ativa": true,
       "permitirVotoPorUsuario": true,
       "votosPublicos": true,
       "atualizarClassificacaoAutomaticamente": true
-    }
-  },
-  "estruturas": {
-    "casa": {
-      "id": "casa_001",
-      "nome": "Minha Casa",
-      "usuario": "usuario_exemplo",
-      "cidade": "Curitiba",
-      "estado": "PR",
-      "dataCriacao": null,
-      "votos": 0,
-      "nivel": 1,
-      "presidente": false
-    },
-    "presidente": {
-      "id": "presidente_001",
-      "usuario": "usuario_exemplo",
-      "nome": "Presidente da Cidade",
-      "cidade": "Curitiba",
-      "estado": "PR",
-      "dataEleicao": null,
-      "votos": 0,
-      "casaId": "casa_001",
-      "ativo": true
     }
   }
 }
