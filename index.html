@@ -1,109 +1,429 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10152b">
-  <title>3st0un0m4p4 — Estou no Mapa</title>
-  <meta name="description" content="Comente sua cidade, entre no mapa e faça sua casa crescer com votos.">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3st0un0m4p4 — Estou no Mapa</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  overflow:hidden;
+  background:#090e1b;
+  color:#fff;
+  font-family:Arial,sans-serif
+}
+#mapa{position:fixed;inset:0}
+header{
+  position:fixed;top:20px;left:24px;z-index:2;
+  pointer-events:none
+}
+header h1{font-size:23px;margin:0}
+header p{color:#9ca9c9;font-size:12px;margin-top:6px}
+.painel{
+  position:fixed;right:20px;top:20px;z-index:3;
+  width:270px;padding:20px;border-radius:18px;
+  background:#111a2beF;border:1px solid #34415d;
+  box-shadow:0 12px 40px #0005
+}
+.painel h2{font-size:18px;margin:0 0 8px}
+.painel p{font-size:13px;color:#aebbd5;line-height:1.6}
+.numero{font-size:30px;font-weight:bold;color:#70f0db}
+button{
+  width:100%;padding:12px;border:0;border-radius:10px;
+  color:#07151b;background:#70f0db;font-weight:bold;
+  cursor:pointer
+}
+button:disabled{opacity:.5;cursor:not-allowed}
+.legenda{
+  position:fixed;bottom:20px;left:20px;z-index:2;
+  background:#111a2beF;border:1px solid #34415d;
+  border-radius:12px;padding:12px 15px;
+  color:#c6d0e7;font-size:12px;line-height:1.9
+}
+#estado{
+  position:fixed;bottom:20px;right:20px;z-index:2;
+  font-size:11px;color:#aebbd5
+}
+@media(max-width:600px){
+  header{top:14px;left:15px}
+  header h1{font-size:18px}
+  .painel{top:auto;right:12px;bottom:95px;width:220px;padding:14px}
+  .legenda{left:12px;bottom:15px;font-size:10px}
+  #estado{display:none}
+}
+</style>
 </head>
+
 <body>
-  <header class="topbar">
-    <a class="brand" href="./" aria-label="3st0un0m4p4 início">
-      <span class="brand-mark">⌂</span>
-      <span><strong>3st0un0m4p4</strong><small>ESTOU NO MAPA</small></span>
-    </a>
-    <nav>
-      <a href="#mapa-section">Mapa</a>
-      <a href="#ranking-section">Ranking</a>
-      <a href="#entrar-section" class="nav-cta">Entrar no mapa <span>↗</span></a>
-    </nav>
-  </header>
+<header>
+  <h1>3st0un0m4p4</h1>
+  <p>ESTOU NO MAPA 🇧🇷 · GIRE E EXPLORE</p>
+</header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="live-dot"></span> O BRASIL É O SEU TERRENO</p>
-        <h1>Você está no mapa.<br><span>Sua casa pode crescer.</span></h1>
-        <p class="hero-desc">Comente sua cidade, ganhe seu espaço e suba de nível com os votos da comunidade. Quem tem a maior casa manda na cidade. 👑</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#entrar-section">Quero minha casa <span>→</span></a>
-          <a class="button button-quiet" href="#mapa-section">Explorar o mapa</a>
-        </div>
-        <div class="stats-row">
-          <div><strong id="totalPessoas">—</strong><span>pessoas no mapa</span></div>
-          <div><strong id="totalCidades">—</strong><span>cidades</span></div>
-          <div><strong id="totalVotos">—</strong><span>votos registrados neste navegador</span></div>
-        </div>
-      </div>
-      <div class="hero-art" aria-label="Ilustração de casas em um mapa 3D">
-        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-        <div class="hero-grid"></div>
-        <div class="floating-label label-top"><span>🏠</span> SUA CASA, SUAS REGRAS</div>
-        <div class="floating-label label-bottom"><span>📈</span> NÍVEL <b id="heroLevel">01</b></div>
-        <div class="hero-house house-back"><i></i><b></b><span></span></div>
-        <div class="hero-house house-front"><i></i><b></b><span></span><em></em></div>
-        <div class="hero-pin">⌂</div>
-      </div>
-    </section>
+<div id="mapa"></div>
 
-    <section class="how-section">
-      <div class="section-heading"><p class="eyebrow">É SIMPLES ASSIM</p><h2>Uma cidade. Muitas casas.<br><span>Uma disputa gigante.</span></h2></div>
-      <div class="how-grid">
-        <article class="how-card"><span class="step-number">01</span><div class="how-icon">📍</div><h3>Marque sua cidade</h3><p>Entre no mapa com seu nome e a cidade onde sua casa vai ficar.</p></article>
-        <article class="how-card"><span class="step-number">02</span><div class="how-icon">🏠</div><h3>Ganhe sua casa</h3><p>Sua casa aparece no mapa e começa no nível 1.</p></article>
-        <article class="how-card"><span class="step-number">03</span><div class="how-icon">👑</div><h3>Suba de nível</h3><p>Receba votos, aumente sua casa e dispute o topo da cidade.</p></article>
-      </div>
-    </section>
+<aside class="painel">
+  <h2 id="nome">Escolha uma casa</h2>
+  <p id="cidade">Clique em uma casa no mapa para ver o participante.</p>
+  <p>Votos recebidos</p>
+  <div class="numero" id="votos">—</div>
+  <p id="nivel">Nível da casa: —</p>
+  <button id="votar" disabled>♡ Votar nesta casa</button>
+  <p id="aviso">Cada casa pode receber um voto seu neste navegador.</p>
+</aside>
 
-    <section id="mapa-section" class="map-section">
-      <div class="section-heading section-heading-row">
-        <div><p class="eyebrow">EXPLORADOR 3D</p><h2>O Brasil <span>em construção.</span></h2><p class="section-desc">Arraste para girar, use a rodinha para aproximar e clique em uma casa para ver os detalhes.</p></div>
-        <div class="map-badge"><span class="live-dot"></span> MAPA INTERATIVO</div>
-      </div>
-      <div class="map-layout">
-        <div class="map-frame">
-          <div class="map-toolbar"><span><i class="toolbar-dot"></i><i class="toolbar-dot"></i><i class="toolbar-dot"></i> MAPA DO BRASIL / 3D</span><button id="resetCamera" type="button">↻ Reiniciar visão</button></div>
-          <div id="mapa" role="img" aria-label="Mapa 3D interativo do Brasil"><div class="map-loading" id="mapaCarregando"><div class="loader"></div><strong>Preparando o mapa...</strong><span>Carregando estados e casas</span></div></div>
-          <div class="map-legend"><span><i class="legend-dot dot-house"></i> Casas</span><span><i class="legend-dot dot-selected"></i> Casa selecionada</span><span>🖱️ Arraste para explorar</span></div>
-        </div>
-        <aside class="side-panel">
-          <div class="panel-head"><div><p class="eyebrow">DETALHES</p><h3 id="painelTitulo">Explore o mapa</h3></div><span class="panel-symbol">⌂</span></div>
-          <div id="detalhesCasa" class="house-details empty-details"><div class="empty-icon">⌖</div><p>Selecione uma casa no mapa ou escolha alguém no ranking para ver seu nível e votar.</p></div>
-          <div class="panel-divider"></div>
-          <form id="formBusca" class="search-form">
-            <label for="campoBusca">Encontrar uma pessoa</label>
-            <div class="search-input-wrap"><span>⌕</span><input id="campoBusca" type="search" placeholder="Nome, cidade ou estado..." autocomplete="off"><button aria-label="Buscar" type="submit">→</button></div>
-          </form>
-          <div id="mensagem" class="message" role="status"></div>
-          <div class="mini-list" id="listaPessoas"></div>
-        </aside>
-      </div>
-    </section>
+<div class="legenda">
+  🏠 Casas dos participantes<br>
+  🟢 Casa selecionada<br>
+  🖱️ Arraste para girar o mapa<br>
+  🔍 Use a rodinha para aproximar
+</div>
 
-    <section id="ranking-section" class="ranking-section">
-      <div class="section-heading section-heading-row"><div><p class="eyebrow">QUEM ESTÁ DOMINANDO?</p><h2>Ranking <span>das casas.</span></h2><p class="section-desc">A casa com mais votos lidera. Os votos desta demonstração ficam salvos neste navegador.</p></div><div class="ranking-total"><strong id="contadorResultados">0</strong><span>casas listadas</span></div></div>
-      <div class="ranking-controls"><label for="filtroEstado">Filtrar por estado</label><select id="filtroEstado"><option value="">Brasil inteiro</option></select><label for="filtroOrdenacao">Ordenar</label><select id="filtroOrdenacao"><option value="votos">Mais votadas</option><option value="nivel">Maior nível</option><option value="nome">Nome A–Z</option></select></div>
-      <div id="ranking" class="ranking-grid"></div>
-      <p id="rankingVazio" class="empty-state" hidden>Ninguém apareceu por aqui com esse filtro ainda.</p>
-    </section>
+<div id="estado">Carregando o mapa do Brasil...</div>
 
-    <section id="entrar-section" class="join-section">
-      <div class="join-copy"><p class="eyebrow">SEU LUGAR É AQUI</p><h2>Comente sua cidade.<br><span>Construa seu território.</span></h2><p>Cadastre uma casa na demonstração. O cadastro é salvo localmente neste navegador; para compartilhar cadastros e votos entre todos os visitantes, conecte um backend.</p><div class="join-note">✦ Uma casa por pessoa nesta demonstração. Use um nome e uma cidade reais ou um apelido.</div></div>
-      <form id="formEntrar" class="join-form">
-        <div class="form-title"><span class="form-title-icon">⌂</span><div><h3>Colocar minha casa no mapa</h3><p>Leva menos de um minuto</p></div></div>
-        <label for="nome">Como você se chama?</label><input id="nome" name="nome" required maxlength="40" placeholder="Seu nome ou apelido">
-        <div class="form-row"><div><label for="cidade">Sua cidade</label><input id="cidade" name="cidade" required maxlength="60" placeholder="Ex.: Curitiba"></div><div><label for="uf">Estado</label><select id="uf" name="uf" required><option value="">UF</option></select></div></div>
-        <label for="descricao">Uma frase sobre você <span class="optional">(opcional)</span></label><textarea id="descricao" name="descricao" maxlength="120" rows="2" placeholder="O que sua cidade precisa saber?"></textarea>
-        <button class="button button-primary full-button" type="submit">Criar minha casa <span>→</span></button>
-        <p class="form-footnote">Ao criar a casa, você concorda em exibir o nome e a cidade informados nesta demonstração.</p>
-      </form>
-    </section>
-  </main>
+<script type="module">
+import * as THREE from
+'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
 
-  <footer><a class="brand footer-brand" href="./"><span class="brand-mark">⌂</span><span><strong>3st0un0m4p4</strong><small>ESTOU NO MAPA</small></span></a><p>Feito para quem quer deixar sua marca no mapa. 🇧🇷</p><a href="info.json" target="_blank" rel="noreferrer">Informações do projeto ↗</a></footer>
-  <div id="tooltipMapa" class="map-tooltip" hidden></div>
-  <script type="module" src="script.js"></script>
+const container = document.querySelector('#mapa');
+const estado = document.querySelector('#estado');
+
+const participantes = [
+  {id:'casa1',nome:'LuCarrilho',cidade:'Curitiba',uf:'PR',
+   lat:-25.4284,lon:-49.2733,votos:12},
+  {id:'casa2',nome:'Manu',cidade:'Curitiba',uf:'PR',
+   lat:-25.45,lon:-49.29,votos:8},
+  {id:'casa3',nome:'Pedro',cidade:'São Paulo',uf:'SP',
+   lat:-23.5505,lon:-46.6333,votos:16},
+  {id:'casa4',nome:'Bia',cidade:'Rio de Janeiro',uf:'RJ',
+   lat:-22.9068,lon:-43.1729,votos:5},
+  {id:'casa5',nome:'Nando',cidade:'Salvador',uf:'BA',
+   lat:-12.9777,lon:-38.5016,votos:10},
+  {id:'casa6',nome:'Lari',cidade:'Recife',uf:'PE',
+   lat:-8.0476,lon:-34.877,votos:3},
+  {id:'casa7',nome:'Gui',cidade:'Brasília',uf:'DF',
+   lat:-15.7939,lon:-47.8828,votos:7}
+];
+
+const STORAGE_KEY='3st0un0m4p4-votos';
+let votosLocais={};
+try {
+  votosLocais=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+} catch {}
+
+participantes.forEach(p=>{
+  if(Number.isFinite(votosLocais[p.id])){
+    p.votos=Math.max(p.votos,votosLocais[p.id]);
+  }
+});
+
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x090e1b);
+scene.fog=new THREE.Fog(0x090e1b,25,65);
+
+const camera=new THREE.PerspectiveCamera(
+  45,innerWidth/innerHeight,.1,200
+);
+camera.position.set(0,16,25);
+
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(innerWidth,innerHeight);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+container.appendChild(renderer.domElement);
+
+scene.add(new THREE.AmbientLight(0xc5d5ff,2));
+
+const luz=new THREE.DirectionalLight(0xffffff,3);
+luz.position.set(-10,20,10);
+scene.add(luz);
+
+const luzRoxa=new THREE.PointLight(0x8065ff,35,50);
+luzRoxa.position.set(3,8,-4);
+scene.add(luzRoxa);
+
+const mapaGrupo=new THREE.Group();
+scene.add(mapaGrupo);
+
+function projetar(lon,lat){
+  return {
+    x:(lon+74)*.48-9.6,
+    z:-(lat+34)*.48+9.6
+  };
+}
+
+function criarCasa(p){
+  const grupo=new THREE.Group();
+  const escala=.75+Math.min(p.votos,60)/100;
+
+  const paredes=new THREE.MeshStandardMaterial({
+    color:0x9c83ff,roughness:.6
+  });
+  const telhado=new THREE.MeshStandardMaterial({
+    color:0x65e6db,roughness:.4
+  });
+  const portaMaterial=new THREE.MeshStandardMaterial({
+    color:0x40347c
+  });
+
+  const corpo=new THREE.Mesh(
+    new THREE.BoxGeometry(.65*escala,.5*escala,.6*escala),
+    paredes
+  );
+  corpo.position.y=.3*escala;
+  grupo.add(corpo);
+
+  const teto=new THREE.Mesh(
+    new THREE.ConeGeometry(.55*escala,.45*escala,4),
+    telhado
+  );
+  teto.rotation.y=Math.PI/4;
+  teto.position.y=.77*escala;
+  grupo.add(teto);
+
+  const porta=new THREE.Mesh(
+    new THREE.BoxGeometry(.14*escala,.25*escala,.04*escala),
+    portaMaterial
+  );
+  porta.position.set(0,.13*escala,.31*escala);
+  grupo.add(porta);
+
+  const base=new THREE.Mesh(
+    new THREE.CylinderGeometry(.48*escala,.48*escala,.05,20),
+    new THREE.MeshStandardMaterial({color:0x293653})
+  );
+  base.position.y=.025;
+  grupo.add(base);
+
+  const pos=projetar(p.lon,p.lat);
+  grupo.position.set(pos.x,.12,pos.z);
+  grupo.userData.participante=p;
+  grupo.children.forEach(obj=>{
+    obj.userData.participante=p;
+  });
+
+  mapaGrupo.add(grupo);
+  return grupo;
+}
+
+let casas=[];
+let selecionado=null;
+let arrastando=false;
+let movimento=false;
+let anterior={x:0,y:0};
+let rotacao={x:.25,y:-.2};
+let zoom=1;
+
+function nivel(p){
+  return Math.floor(p.votos/5)+1;
+}
+
+function atualizarPainel(p){
+  selecionado=p;
+
+  document.querySelector('#nome').textContent=p.nome;
+  document.querySelector('#cidade').textContent=
+    '📍 '+p.cidade+' · '+p.uf;
+  document.querySelector('#votos').textContent=p.votos;
+  document.querySelector('#nivel').textContent=
+    'Nível da casa: '+nivel(p);
+
+  const botao=document.querySelector('#votar');
+  const jaVotou=Boolean(votosLocais['votou-'+p.id]);
+
+  botao.disabled=jaVotou;
+  botao.textContent=jaVotou
+    ?'✓ Você já votou'
+    :'♡ Votar nesta casa';
+
+  casas.forEach(casa=>{
+    casa.children.forEach(obj=>{
+      if(obj.material?.color){
+        const participante=obj.userData.participante;
+        obj.material.color.setHex(
+          participante?.id===p.id ? 0x65e6db :
+          obj.geometry?.type==='ConeGeometry' ? 0x65e6db :
+          0x9c83ff
+        );
+      }
+    });
+  });
+}
+
+document.querySelector('#votar').addEventListener('click',()=>{
+  if(!selecionado)return;
+
+  const chave='votou-'+selecionado.id;
+  if(votosLocais[chave])return;
+
+  selecionado.votos++;
+  votosLocais[chave]=true;
+  votosLocais[selecionado.id]=selecionado.votos;
+
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(votosLocais));
+  }catch{}
+
+  casas.forEach(c=>mapaGrupo.remove(c));
+  casas=participantes.map(criarCasa);
+
+  atualizarPainel(selecionado);
+  document.querySelector('#aviso').textContent=
+    'Voto registrado! Sua casa favorita ganhou +1 voto.';
+});
+
+const raycaster=new THREE.Raycaster();
+const mouse=new THREE.Vector2();
+
+renderer.domElement.style.cursor='grab';
+
+renderer.domElement.addEventListener('pointerdown',e=>{
+  arrastando=true;
+  movimento=false;
+  anterior={x:e.clientX,y:e.clientY};
+  renderer.domElement.setPointerCapture(e.pointerId);
+});
+
+renderer.domElement.addEventListener('pointermove',e=>{
+  if(!arrastando)return;
+
+  const dx=e.clientX-anterior.x;
+  const dy=e.clientY-anterior.y;
+
+  if(Math.abs(dx)+Math.abs(dy)>2)movimento=true;
+
+  rotacao.y+=dx*.006;
+  rotacao.x=Math.max(-.8,Math.min(.8,rotacao.x+dy*.004));
+
+  anterior={x:e.clientX,y:e.clientY};
+});
+
+renderer.domElement.addEventListener('pointerup',e=>{
+  arrastando=false;
+  if(movimento)return;
+
+  const rect=renderer.domElement.getBoundingClientRect();
+  mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
+  mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
+
+  raycaster.setFromCamera(mouse,camera);
+
+  const objetos=raycaster.intersectObjects(casas,true);
+
+  if(objetos.length){
+    let objeto=objetos[0].object;
+
+    while(objeto&&!objeto.userData.participante){
+      objeto=objeto.parent;
+    }
+
+    if(objeto?.userData.participante){
+      atualizarPainel(objeto.userData.participante);
+    }
+  }
+});
+
+renderer.domElement.addEventListener('wheel',e=>{
+  zoom=Math.max(.6,Math.min(2,zoom+(e.deltaY>0?-.08:.08)));
+},{passive:true});
+
+async function carregarMapa(){
+  try{
+    const resposta=await fetch(
+      'https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson'
+    );
+
+    if(!resposta.ok)throw new Error('GeoJSON indisponível');
+
+    const geo=await resposta.json();
+
+    geo.features.forEach(feature=>{
+      const geometria=feature.geometry;
+      if(!geometria)return;
+
+      const poligonos=geometria.type==='Polygon'
+        ?[geometria.coordinates]
+        :geometria.type==='MultiPolygon'
+          ?geometria.coordinates
+          :[];
+
+      poligonos.forEach(poligono=>{
+        const anel=poligono[0];
+        if(!anel||anel.length<3)return;
+
+        const forma=new THREE.Shape();
+
+        anel.forEach((coordenada,i)=>{
+          const p=projetar(coordenada[0],coordenada[1]);
+          if(i===0)forma.moveTo(p.x,p.z);
+          else forma.lineTo(p.x,p.z);
+        });
+
+        forma.closePath();
+
+        const estadoMesh=new THREE.Mesh(
+          new THREE.ShapeGeometry(forma),
+          new THREE.MeshStandardMaterial({
+            color:0x202e4b,
+            side:THREE.DoubleSide,
+            roughness:.85
+          })
+        );
+
+        estadoMesh.rotation.x=-Math.PI/2;
+        estadoMesh.position.y=.02;
+        mapaGrupo.add(estadoMesh);
+
+        const pontos=anel.map(coordenada=>{
+          const p=projetar(coordenada[0],coordenada[1]);
+          return new THREE.Vector3(p.x,.055,p.z);
+        });
+
+        const borda=new THREE.LineLoop(
+          new THREE.BufferGeometry().setFromPoints(pontos),
+          new THREE.LineBasicMaterial({
+            color:0x566d9a,
+            transparent:true,
+            opacity:.8
+          })
+        );
+
+        mapaGrupo.add(borda);
+      });
+    });
+
+    estado.textContent='Mapa estadual carregado · '+participantes.length+' casas';
+  }catch(erro){
+    console.error(erro);
+    estado.textContent='Não foi possível carregar os estados. Verifique sua conexão.';
+  }
+
+  casas=participantes.map(criarCasa);
+}
+
+function animar(){
+  requestAnimationFrame(animar);
+
+  mapaGrupo.rotation.y=rotacao.y;
+  mapaGrupo.rotation.x=rotacao.x;
+
+  const distancia=27/zoom;
+  camera.position.set(0,distancia*.65,distancia);
+  camera.lookAt(0,0,0);
+
+  renderer.render(scene,camera);
+}
+
+addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+});
+
+carregarMapa();
+animar();
+</script>
 </body>
 </html>
